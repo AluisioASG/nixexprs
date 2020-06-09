@@ -6,6 +6,10 @@ self: super:
 
   dyndnsc = super.callPackage ./tools/networking/dyndnsc { inherit (self) python3Packages; };
 
+  guile-commonmark = super.callPackage ./development/guile-modules/guile-commonmark {
+    inherit (self) pkgconfig guile;
+  };
+
   linuxPackagesFor = kernel:
     (super.linuxPackagesFor kernel).extend (import ./os-specific/linux/kernel-packages.nix);
 
