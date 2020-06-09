@@ -10,6 +10,10 @@ self: super:
     inherit (self) pkgconfig guile;
   };
 
+  haunt = super.callPackage ./applications/misc/haunt {
+    inherit (self) pkgconfig guile guile-commonmark guile-reader;
+  };
+
   linuxPackagesFor = kernel:
     (super.linuxPackagesFor kernel).extend (import ./os-specific/linux/kernel-packages.nix);
 
