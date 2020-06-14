@@ -1,6 +1,9 @@
 self: super:
 
 {
-  haunt = import ./haunt { haunt = super.haunt; };
-  zoxide = import ./zoxide { inherit (super) fetchFromGitHub lib zoxide; };
+
+  haunt = super.callPackage ./haunt { };
+
+  zoxide = super.callPackage ./zoxide { };
+
 }
