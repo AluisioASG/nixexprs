@@ -16,6 +16,9 @@ let
 
     python3 = pkgs.python3.override { packageOverrides = import ./development/python-modules; };
 
+    # Package sets, copied from <nixpkgs>/pkgs/top-level/all-packages.nix.
+    linuxPackages = linuxPackagesFor pkgs.linux;
+    linuxPackages_latest = linuxPackagesFor pkgs.linux_latest;
     python3Packages = python3.pkgs;
 
   };
