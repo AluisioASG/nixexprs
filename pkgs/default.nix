@@ -18,8 +18,6 @@ let
 
     python3Packages = python3.pkgs;
 
-    starship = callPackage ./shells/starship { };
-
   };
 in
 self
