@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "rtl8723bu-${kernel.version}-${version}";
-  version = "2020-01-26";
+  version = "2020-04-05";
 
   src = fetchFromGitHub {
     owner = "lwfinger";
     repo = "rtl8723bu";
-    rev = "2d939a37048e9ee9fa26e225461c59a34f72dcc5";
-    sha256 = "0scc5hx083gmcp3igb00agwpv903r2h9pzz1zdmy2pm072m2ayji";
+    rev = "c9549d172a4f9d6ccf6d528682640246a41c2f0c";
+    sha256 = "1j5ijp9721nrh5g4gkpxchc6z2dhajhq63a0vwkbz1rmifkbzzmy";
   };
 
   postPatch = stdenv.lib.optionalString (!concurrentMode) ''
