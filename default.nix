@@ -10,4 +10,4 @@ in
     pkgs = import ./pkgs/overlay.nix;
     patches = import ./patches/overlay.nix;
   };
-} // myPatchedPkgs
+} // myPkgs // myPatchedPkgs
