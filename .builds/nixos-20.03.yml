@@ -1,0 +1,8 @@
+image: nixos/20.03
+repositories:
+  nixos: https://nixos.org/channels/nixos-20.03
+sources:
+  - https://git.sr.ht/~aasg/nixexprs
+tasks:
+  - build: |
+      nix-build --keep-going --keep-failed nixexprs

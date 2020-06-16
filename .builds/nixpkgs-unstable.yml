@@ -1,0 +1,8 @@
+image: nixos/latest
+repositories:
+  nixpkgs: https://nixos.org/channels/nixpkgs-unstable
+sources:
+  - https://git.sr.ht/~aasg/nixexprs
+tasks:
+  - build: |
+      nix-build --keep-going --keep-failed nixexprs
