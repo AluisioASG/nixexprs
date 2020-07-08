@@ -12,10 +12,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ guile ];
 
-  makeFlags = [
-    "moddir=$(out)/share/guile/site"
-    "objdir=$(out)/share/guile/site/site-ccache"
+  configureFlags = [
+    "--datarootdir=$(out)/share"
+    "--libdir=$(out)/share"
   ];
+  makeFlags = [
+    "GUILE_EFFECTIVE_VERSION="
+  ];
+
+  postInstall = ''
+    mv $out/share/guile/site-ccache $out/share/guile/site/site-ccache
+  '';
 
   meta = with lib; {
     description = "JSON module for Guile";
