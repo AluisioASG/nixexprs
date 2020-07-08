@@ -17,6 +17,8 @@ let
 
     guile-commonmark = callPackage ./development/guile-modules/guile-commonmark { };
 
+    guile-json = callPackage ./development/guile-modules/guile-json { };
+
     haunt = callPackage ./applications/misc/haunt { };
 
     linuxPackages = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux);

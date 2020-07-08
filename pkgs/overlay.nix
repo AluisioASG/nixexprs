@@ -10,6 +10,8 @@ self: super:
 
   guile-commonmark = super.callPackage ./development/guile-modules/guile-commonmark { };
 
+  guile-json = super.callPackage ./development/guile-modules/guile-json { };
+
   haunt = super.callPackage ./applications/misc/haunt { };
 
   linuxPackagesFor = kernel:
