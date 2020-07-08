@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "moddir=$(out)/share/guile/site"
-    "godir=$(out)/share/guile/site/site-ccache"
+    "objdir=$(out)/share/guile/site/site-ccache"
   ];
 
   meta = with lib; {
