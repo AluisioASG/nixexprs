@@ -53,6 +53,24 @@ in
     programs.dma = {
       enable = mkEnableOption "DragonFly Mail Agent";
 
+      user = mkOption {
+        type = types.str;
+        default = "dma";
+        description = ''User to run dma as (and owner of the mail spool)'';
+      };
+
+      group = mkOption {
+        type = types.str;
+        default = "dma";
+        description = ''Group to run dma as.'';
+      };
+
+      setSendmail = mkOption {
+        type = types.bool;
+        description = "Whether to set the system sendmail to dma.";
+        default = true;
+      };
+
       relay = mkOption {
         type = with types; nullOr (submodule {
           options = {
@@ -119,23 +137,30 @@ in
         description = ''Additional configuration.'';
         default = { };
       };
-
-      setSendmail = mkOption {
-        type = types.bool;
-        description = "Whether to set the system sendmail to dma.";
-        default = true;
-      };
     };
   };
 
   config = mkIf cfg.enable {
     environment.etc."dma/dma.conf" = { text = configText; };
+
+    users = {
+      users.${cfg.user} = {
+        description = "DragonFly Mail Agent";
+        group = cfg.group;
+        home = "/var/spool/dma";
+        createHome = true;
+      };
+      groups.${cfg.group} = { };
+    };
+
     environment.systemPackages = [ package ];
     services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail {
       program = "sendmail";
       source = "${package}/bin/dma";
-      setuid = false;
-      setgid = false;
+      owner = cfg.user;
+      group = cfg.group;
+      setuid = true;
+      setgid = true;
     };
   };
 }
