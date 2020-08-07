@@ -115,9 +115,15 @@ in
       };
 
       settings = mkOption {
-        type = types.attrs;
+        type = with types; attrsOf (oneOf [ bool int str ]);
         description = ''Additional configuration.'';
         default = { };
+      };
+
+      setSendmail = mkOption {
+        type = types.bool;
+        description = "Whether to set the system sendmail to dma.";
+        default = true;
       };
     };
   };
@@ -125,5 +131,11 @@ in
   config = mkIf cfg.enable {
     environment.etc."dma/dma.conf" = { text = configText; };
     environment.systemPackages = [ package ];
+    services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail {
+      program = "sendmail";
+      source = "${package}/bin/dma";
+      setuid = false;
+      setgid = false;
+    };
   };
 }
