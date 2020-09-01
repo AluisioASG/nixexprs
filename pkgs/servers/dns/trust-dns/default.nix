@@ -1,7 +1,11 @@
-{ lib, callPackage, defaultCrateOverrides }:
+{ lib
+, callPackage
+, defaultCrateOverrides
+, features ? [ ]
+}:
 
 (callPackage ./Cargo.nix { }).workspaceMembers.trust-dns.build.override {
-  features = [ "dns-over-rustls" ];
+  inherit features;
   crateOverrides = defaultCrateOverrides // {
     trust-dns = attrs: {
       meta = with lib; {
