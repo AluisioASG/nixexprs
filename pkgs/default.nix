@@ -37,6 +37,8 @@ let
       in
       pkgs.recurseIntoAttrs pyself;
 
+    trust-dns = callPackage ./servers/dns/trust-dns { };
+
   };
 in
 self
