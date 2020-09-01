@@ -17,18 +17,6 @@ in
         description = "Trust-DNS package to use.";
       };
 
-      user = mkOption {
-        type = types.str;
-        default = "trust-dns";
-        description = "User under which the Trust-DNS server runs";
-      };
-
-      group = mkOption {
-        type = types.str;
-        default = "trust-dns";
-        description = "Group under which the Trust-DNS server runs";
-      };
-
       settings = mkOption {
         type = format.type;
         default = { };
@@ -38,6 +26,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    services.trust-dns.settings = {
+      directory = "/var/lib/trust-dns";
+    };
+
     environment.systemPackages = [ cfg.package ];
 
     systemd.services.trust-dns = {
@@ -48,20 +40,14 @@ in
       serviceConfig = {
         Type = "simple";
         ExecStart = "${cfg.package}/bin/named -c ${configFile}";
-        User = cfg.user;
-        Group = cfg.group;
+        DynamicUser = true;
+        ConfigurationDirectory = "trust-dns";
+        StateDirectory = "trust-dns";
         Restart = "on-abnormal";
-        StartLimitInterval = 14400;
-        StartLimitBurst = 10;
         AmbientCapabilities = "cap_net_bind_service";
         CapabilityBoundingSet = "cap_net_bind_service";
         NoNewPrivileges = true;
-        LimitNPROC = 512;
-        LimitNOFILE = 1048576;
-        PrivateTmp = true;
         PrivateDevices = true;
-        ProtectHome = true;
-        TimeoutStopSec = "5s";
       };
     };
   };
