@@ -10,8 +10,14 @@ secrets:
 tasks:
   - prepare: |
       cachix use aasg-nixexprs
+      nix path-info --all | grep -v '\.drv$' | sort >pre-build-paths
   - build: |
-      set -o pipefail
-      nix-build --no-out-link --keep-going --keep-failed nixexprs | tee built-paths
+      nix-build --no-out-link --keep-going --keep-failed nixexprs || touch FAILED
   - cache: |
-      cachix push aasg-nixexprs <built-paths
+      nix path-info --all | grep -v '\.drv$' | sort >post-build-paths
+      comm -13 pre-build-paths post-build-paths | cachix push aasg-nixexprs
+  - finish: |
+      if [[ -f FAILED ]]; then
+        echo "Build failed. See logs of the build task for details."
+        exit 1
+      fi
