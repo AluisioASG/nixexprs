@@ -1,14 +1,13 @@
 { stdenv, fetchFromGitHub, kernel, concurrentMode ? false }:
 
 stdenv.mkDerivation rec {
-  name = "rtl8723bu-${kernel.version}-${version}";
-  version = "2020-04-05";
+  name = "rtl8723bu-${kernel.version}";
 
   src = fetchFromGitHub {
     owner = "lwfinger";
     repo = "rtl8723bu";
-    rev = "c9549d172a4f9d6ccf6d528682640246a41c2f0c";
-    sha256 = "1j5ijp9721nrh5g4gkpxchc6z2dhajhq63a0vwkbz1rmifkbzzmy";
+    rev = "5100a8b347bad28655cabc975786e701b5e1fa1f";
+    sha256 = "18x3x9jx6mc22cgc8rf2fsa0crwq55iapry9ymdn1rw4dclyahjk";
   };
 
   postPatch = stdenv.lib.optionalString (!concurrentMode) ''
