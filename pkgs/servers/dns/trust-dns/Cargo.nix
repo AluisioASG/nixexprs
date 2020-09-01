@@ -3099,10 +3099,6 @@ rec {
             optional = true;
           }
           {
-            name = "socket2";
-            packageId = "socket2";
-          }
-          {
             name = "tokio";
             packageId = "tokio";
             features = [ "rt-core" "rt-threaded" "time" ];
