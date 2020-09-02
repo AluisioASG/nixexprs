@@ -39,7 +39,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/named -c ${configFile}";
+        ExecStart = "${cfg.package}/bin/named --quiet --config=${configFile}";
         DynamicUser = true;
         ConfigurationDirectory = "trust-dns";
         StateDirectory = "trust-dns";
