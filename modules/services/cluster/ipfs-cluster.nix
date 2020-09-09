@@ -96,12 +96,9 @@ in
         User = cfg.user;
         Group = cfg.group;
         Restart = "on-abnormal";
-        StartLimitInterval = 14400;
-        StartLimitBurst = 10;
         AmbientCapabilities = "cap_net_bind_service";
         CapabilityBoundingSet = "cap_net_bind_service";
         NoNewPrivileges = true;
-        LimitNPROC = 512;
         LimitNOFILE = 1048576;
         PrivateTmp = true;
         PrivateDevices = true;
