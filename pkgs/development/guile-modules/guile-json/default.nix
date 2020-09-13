@@ -18,11 +18,10 @@ stdenv.mkDerivation rec {
   ];
   makeFlags = [
     "GUILE_EFFECTIVE_VERSION="
+    "objdir=$(out)/share/guile/site/site-ccache"
   ];
 
-  postInstall = ''
-    mv $out/share/guile/site-ccache $out/share/guile/site/site-ccache
-  '';
+  doCheck = true;
 
   meta = with lib; {
     description = "JSON module for Guile";
