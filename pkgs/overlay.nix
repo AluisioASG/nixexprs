@@ -19,6 +19,8 @@ self: super:
 
   python3 = super.python3.override { packageOverrides = import ./development/python-modules; };
 
+  shellharden = super.callPackage ./development/tools/shellharden { };
+
   trust-dns = super.callPackage ./servers/dns/trust-dns { };
 
 }

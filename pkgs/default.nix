@@ -37,6 +37,8 @@ let
       in
       pkgs.recurseIntoAttrs pyself;
 
+    shellharden = callPackage ./development/tools/shellharden { };
+
     trust-dns = callPackage ./servers/dns/trust-dns { };
 
   };
