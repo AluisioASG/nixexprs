@@ -15,6 +15,8 @@ let
 
     dyndnsc = callPackageWithMerged "python3Packages" ./tools/networking/dyndnsc { };
 
+    esbuild = callPackage ./development/tools/esbuild { };
+
     guile-commonmark = callPackage ./development/guile-modules/guile-commonmark { };
 
     guile-json = callPackage ./development/guile-modules/guile-json { };

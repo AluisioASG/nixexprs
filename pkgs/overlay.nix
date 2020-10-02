@@ -8,6 +8,8 @@ self: super:
 
   dyndnsc = super.callPackage ./tools/networking/dyndnsc { };
 
+  esbuild = super.callPackage ./development/tools/esbuild { };
+
   guile-commonmark = super.callPackage ./development/guile-modules/guile-commonmark { };
 
   guile-json = super.callPackage ./development/guile-modules/guile-json { };
