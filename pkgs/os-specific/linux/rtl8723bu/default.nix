@@ -28,6 +28,9 @@ stdenv.mkDerivation rec {
     "KVER=${kernel.version}"
     "DEPMOD=true"
     "INSTALL_MOD_PATH=$(out)"
+    # Fix build for Linux 5.8(+?) on Nixpkgs 20.09.
+    # https://wiki.gentoo.org/wiki/Binutils_2.32_upgrade_notes/elfutils_0.175:_unable_to_initialize_decompress_status_for_section_.debug_info
+    "USER_EXTRA_CFLAGS=-gz=none"
   ];
 
   enableParallelBuilding = true;
