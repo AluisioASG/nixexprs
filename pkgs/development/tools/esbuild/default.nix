@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "esbuild";
-  version = "0.7.8";
+  version = "0.7.14";
 
   src = fetchFromGitHub {
     owner = "evanw";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1xxdwn20wlv5d2khv56jihbdcy68s6k258d4j2jqq3nrir72sf46";
+    sha256 = "1y5hqymv2r8r29f8vh8kgncj3wlkg4fzi0zlc7mgyss872ajkc7i";
   };
 
   # For NixOS 20.03.
