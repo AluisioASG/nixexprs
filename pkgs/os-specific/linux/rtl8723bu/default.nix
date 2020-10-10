@@ -1,12 +1,13 @@
 { stdenv, fetchFromGitHub, kernel, concurrentMode ? false }:
 
 stdenv.mkDerivation rec {
-  name = "rtl8723bu-${kernel.version}";
+  pname = "rtl8723bu-unstable";
+  version = "2020-09-04";
 
   src = fetchFromGitHub {
     owner = "lwfinger";
     repo = "rtl8723bu";
-    rev = "5100a8b347bad28655cabc975786e701b5e1fa1f";
+    rev = "ce4490b1e0dcedec30659dc20b945b90d9c3d83c";
     sha256 = "18x3x9jx6mc22cgc8rf2fsa0crwq55iapry9ymdn1rw4dclyahjk";
   };
 
