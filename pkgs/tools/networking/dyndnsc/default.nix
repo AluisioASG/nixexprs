@@ -27,6 +27,8 @@ python3Packages.buildPythonApplication rec {
   checkPhase = ''
     py.test -k 'not dnswanip'
   '';
+  # Allow tests involving localhost on macOS.
+  __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
     description = "Dynamic DNS update client with support for multiple protocols";
