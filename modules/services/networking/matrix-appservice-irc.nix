@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  myLib = import ../../../lib { inherit lib; };
+  inherit (pkgs.lib) isSubsetOf;
 
   format = pkgs.formats.yaml { };
   cfg = config.services.matrix-appservice-irc;
@@ -77,7 +77,7 @@ in
     assertions =
       [
         {
-          assertion = myLib.isSubsetOf (builtins.attrNames cfg.settings.ircService.servers) (builtins.attrNames cfg.botPasswordFiles);
+          assertion = isSubsetOf (builtins.attrNames cfg.settings.ircService.servers) (builtins.attrNames cfg.botPasswordFiles);
           message = "botPasswordFiles references servers not present in the settings";
         }
       ];

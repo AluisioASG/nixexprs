@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  myLib = import ../../lib { inherit lib; };
+  inherit (pkgs.lib) indexOf;
 
   cfg = config.programs.dma;
 
@@ -17,7 +17,7 @@ let
   tlsConfigSettings = [ false "require-tls" "require-starttls" "allow-starttls" ];
   tlsConfigValues = [ null "SECURETRANSFER" "STARTTLS" "OPPORTUNISTIC_TLS" ];
   tlsConfig = secureTransfer:
-    concatStringsSep "\n" (sublist 1 (myLib.indexOf secureTransfer tlsConfigSettings) tlsConfigValues);
+    concatStringsSep "\n" (sublist 1 (indexOf secureTransfer tlsConfigSettings) tlsConfigValues);
 
   masqueradeConfig = masquerade:
     if (masquerade.user != null) && (masquerade.domain != null) then
