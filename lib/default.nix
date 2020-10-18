@@ -2,7 +2,7 @@ super:
 let
   callLibs = file: import file { lib = super // self; };
   self = rec {
-    declareEnvironment = callLibs ./declarative-env.nix;
+    declareEnvironment = super.makeOverridable (callLibs ./declarative-env.nix);
 
     lists = callLibs ./lists.nix;
     inherit (lists) indexOf isSubsetOf;
