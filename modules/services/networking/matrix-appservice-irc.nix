@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-with import ../../../lib/extension.nix { inherit pkgs; };
+with import ../../../lib/extension.nix { inherit lib; };
 let
   format = pkgs.formats.yaml { };
   cfg = config.services.matrix-appservice-irc;

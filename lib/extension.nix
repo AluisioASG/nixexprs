@@ -1,9 +1,8 @@
-{ pkgs }:
+{ lib }:
 /*
  * Merge of the Nixpkgs and aasg libs.
  */
 let
-  lib = pkgs.lib;
-  aasgLib = import ./. { inherit pkgs; };
+  aasgLib = import ./. { inherit lib; };
 in
 aasgLib.updateNewRecursive lib aasgLib

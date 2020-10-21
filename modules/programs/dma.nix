@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-with import ../../lib/extension.nix { inherit pkgs; };
+with import ../../lib/extension.nix { inherit lib; };
 let
   cfg = config.programs.dma;
 

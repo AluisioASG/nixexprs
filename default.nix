@@ -5,7 +5,7 @@ let
   aasgPkgs = newPkgs // patchedPkgs;
 in
 {
-  lib = import ./lib { inherit pkgs; };
+  lib = import ./lib { inherit (pkgs) lib; };
   modules = import ./modules;
   overlays = {
     pkgs = import ./pkgs/overlay.nix;
