@@ -122,4 +122,34 @@ runTestsOrDieTrying {
     expected = true;
   };
 
+  ###########
+  # strings #
+  ###########
+
+  testCapitalize1 = {
+    expr = capitalize "";
+    expected = "";
+  };
+
+  # tryEval doesn't catch this, wait for github:NixOS/nix#1230.
+  #testCapitalize2 = {
+  #  expr = builtins.tryEval (capitalize strings);
+  #  expected = evalFailure;
+  #};
+
+  testCapitalize3 = {
+    expr = capitalize "05:14";
+    expected = "05:14";
+  };
+
+  testCapitalize4 = {
+    expr = capitalize "90-default.conf";
+    expected = "90-default.conf";
+  };
+
+  testCapitalize5 = {
+    expr = capitalize "testCapitalize5";
+    expected = "TestCapitalize5";
+  };
+
 }

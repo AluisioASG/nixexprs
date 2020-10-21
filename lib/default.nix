@@ -12,6 +12,9 @@ let
 
     lists = callLibs ./lists.nix;
     inherit (lists) indexOf isSubsetOf;
+
+    strings = callLibs ./strings.nix;
+    inherit (strings) capitalize;
   };
 in
 self
