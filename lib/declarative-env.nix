@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, ... }:
 
 # Based on https://gist.github.com/lheckemann/402e61e8e53f136f239ecd8c17ab1deb
 { file # Path to the environment definition file
