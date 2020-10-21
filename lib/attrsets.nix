@@ -1,8 +1,17 @@
-{ lib, ... }:
+{ lib, aasgLib }:
 let
   inherit (builtins) attrNames concatStringsSep intersectAttrs isAttrs;
 in
 rec {
+  /*
+   * Return a copy of the input attribute set with its (non-recursive)
+   * attribute names capitalized.  Useful when mapping between Nixpkgs
+   * and systemd.
+   */
+  capitalizeAttrNames = /*attrs:*/
+    lib.mapAttrs' (name: value: lib.nameValuePair (aasgLib.capitalize name) value);
+
+
   /*
    * Like the update operator `//`, but throws if the right-hand
    * attrset contains an attribute that already exists in the

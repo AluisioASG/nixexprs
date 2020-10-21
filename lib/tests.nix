@@ -18,6 +18,26 @@ runTestsOrDieTrying {
   # attrsets #
   ############
 
+  testCapitalizeAttrNames1 = {
+    expr = capitalizeAttrNames { };
+    expected = { };
+  };
+
+  testCapitalizeAttrNames2 = {
+    expr = capitalizeAttrNames { ExecStart = "/bin/false"; };
+    expected = { ExecStart = "/bin/false"; };
+  };
+
+  testCapitalizeAttrNames3 = {
+    expr = capitalizeAttrNames { execStart = "/bin/false"; };
+    expected = { ExecStart = "/bin/false"; };
+  };
+
+  testCapitalizeAttrNames4 = {
+    expr = capitalizeAttrNames { serviceConfig.execStart = "/bin/false"; };
+    expected = { ServiceConfig = { execStart = "/bin/false"; }; };
+  };
+
   testUpdateNew1 = {
     expr = updateNew { } { };
     expected = { };
