@@ -8,6 +8,8 @@ let
 
     declareEnvironment = lib.makeOverridable (callLibs ./declarative-env.nix);
 
+    extended = import ./extension.nix { inherit pkgs; };
+
     lists = callLibs ./lists.nix;
     inherit (lists) indexOf isSubsetOf;
   };

@@ -5,10 +5,10 @@ rec {
    * `xs`.
    *
    * Example:
-   *     indexOf "c" ["a b c d e"]
+   *     indexOf "c" ["a" "b" "c" "d" "e"]
    *     => 2
    *
-   *     indexOf "g" ["a b c d e"]
+   *     indexOf "g" ["a" "b" "c" "d" "e"]
    *     => -1
    */
   indexOf = x: xs:
