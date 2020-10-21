@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
-with lib;
+with import ../../../lib/extension.nix { inherit pkgs; };
 let
-  inherit (pkgs.lib) isSubsetOf;
-
   format = pkgs.formats.yaml { };
   cfg = config.services.matrix-appservice-irc;
   pkg = cfg.package;

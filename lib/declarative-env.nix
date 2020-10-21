@@ -1,9 +1,9 @@
-{ ... }:
+{ lib }:
 
 # Based on https://gist.github.com/lheckemann/402e61e8e53f136f239ecd8c17ab1deb
 { file # Path to the environment definition file
 , withPkgs # Function returning the packages to install
-, name ? pkgs.lib.removeSuffix ".nix" (baseNameOf file) # Name of the environment
+, name ? lib.removeSuffix ".nix" (baseNameOf file) # Name of the environment
 , drvName ? "${name}-environment" # Name of the generated derivaqtion
 , profile ? "/nix/var/nix/profiles/${name}" # Path to the profile
 , pkgs ? import <nixpkgs> { } # Nixpkgs

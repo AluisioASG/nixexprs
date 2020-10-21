@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
-with lib;
+with import ../../lib/extension.nix { inherit pkgs; };
 let
-  inherit (pkgs.lib) indexOf;
-
   cfg = config.programs.dma;
 
   package = pkgs.dma or (import ../../pkgs/tools/networking/dma { inherit pkgs; });
