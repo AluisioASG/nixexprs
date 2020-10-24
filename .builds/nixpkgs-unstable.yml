@@ -8,6 +8,8 @@ sources:
 secrets:
   - 06d44cfd-6ded-45c4-9ef4-8e1433f9054e
 tasks:
+  - test-lib: |
+      nix-instantiate --eval --strict nixexprs/lib/tests.nix
   - prepare: |
       cachix use aasg-nixexprs
       nix path-info --all | grep -v '\.drv$' | sort >pre-build-paths
