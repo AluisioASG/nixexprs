@@ -25,7 +25,11 @@ python3Packages.buildPythonApplication rec {
 
   # Disable tests not supported in the sandbox.
   checkPhase = ''
+    runHook preCheck
+
     py.test -k 'not dnswanip'
+
+    runHook postCheck
   '';
   # Allow tests involving localhost on macOS.
   __darwinAllowLocalNetworking = true;

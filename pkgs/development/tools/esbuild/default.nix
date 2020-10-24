@@ -19,7 +19,11 @@ buildGoModule rec {
   subPackages = [ "./cmd/esbuild" ];
 
   checkPhase = ''
+    runHook preCheck
+
     go test ./internal/...
+
+    runHook postCheck
   '';
 
   meta = with lib; {
