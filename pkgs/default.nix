@@ -23,6 +23,8 @@ let
 
     haunt = callPackage ./applications/misc/haunt { };
 
+    iwgtk = callPackage ./applications/networking/iwgtk { };
+
     linuxPackages = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux);
     linuxPackages_latest = pkgs.recurseIntoAttrs (linuxPackagesFor pkgs.linux_latest);
     linuxPackagesFor = kernel:

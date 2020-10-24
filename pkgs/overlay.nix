@@ -16,6 +16,8 @@ self: super:
 
   haunt = super.callPackage ./applications/misc/haunt { };
 
+  iwgtk = super.callPackage ./applications/networking/iwgtk { };
+
   linuxPackagesFor = kernel:
     (super.linuxPackagesFor kernel).extend (import ./os-specific/linux/kernel-packages.nix);
 
