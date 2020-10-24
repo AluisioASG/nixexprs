@@ -18,6 +18,7 @@ buildGoModule rec {
 
   subPackages = [ "./cmd/esbuild" ];
 
+  doCheck = true;
   checkPhase = ''
     runHook preCheck
 
