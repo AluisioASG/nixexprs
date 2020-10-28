@@ -1,9 +1,9 @@
-self: super:
+final: prev:
 
 {
 
-  haunt = import ./haunt { inherit (super) haunt; };
+  haunt = import ./haunt { inherit (prev) haunt; };
 
-  ipfs-cluster = import ./ipfs-cluster { inherit (super) ipfs-cluster; };
+  ipfs-cluster = import ./ipfs-cluster { inherit (prev) ipfs-cluster; };
 
 }
