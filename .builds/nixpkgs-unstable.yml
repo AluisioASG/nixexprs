@@ -3,12 +3,14 @@ repositories:
   nixpkgs: https://nixos.org/channels/nixpkgs-unstable
 packages:
   - nixpkgs.cachix
+  - nixpkgs.nixUnstable
 sources:
   - https://git.sr.ht/~aasg/nixexprs
 secrets:
   - 06d44cfd-6ded-45c4-9ef4-8e1433f9054e
 tasks:
-  - test-lib: |
+  - test: |
+      nix --experimental-features 'nix-command flakes' flake check
       nix-instantiate --eval --strict nixexprs/lib/tests.nix
   - prepare: |
       cachix use aasg-nixexprs
