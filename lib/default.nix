@@ -5,7 +5,8 @@ let
     attrsets = callLibs ./attrsets.nix;
     inherit (attrsets) capitalizeAttrNames updateNew updateNewRecursive;
 
-    declareEnvironment = lib.makeOverridable (callLibs ./declarative-env.nix);
+    declarativeEnvironments = callLibs ./declarative-env.nix;
+    inherit (declarativeEnvironments) declareEnvironment baseEnvironment;
 
     extended = import ./extension.nix { inherit lib; };
 
