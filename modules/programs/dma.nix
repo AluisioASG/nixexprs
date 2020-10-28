@@ -3,7 +3,7 @@ with import ../../lib/extension.nix { inherit lib; };
 let
   cfg = config.programs.dma;
 
-  package = pkgs.dma or (import ../../pkgs/tools/networking/dma { inherit pkgs; });
+  package = pkgs.dma or (import ../../pkgs { inherit pkgs; }).dma;
 
   relayConfig = relay: ''
     SMARTHOST ${relay.host}
