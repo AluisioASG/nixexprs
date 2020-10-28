@@ -6,7 +6,7 @@ let
 
   generatePeerConfig = peer: {
     wireguardPeerConfig = pipe peer [
-      (getAttrs [ "publicKey" "presharedKeyFile" "allowedIPs" "endpoint" ])
+      (getAttrs [ "publicKey" "presharedKeyFile" "allowedIPs" "endpoint" "persistentKeepalive" ])
       (filterAttrs (name: value: value != null))
       capitalizeAttrNames
     ];
