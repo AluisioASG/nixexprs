@@ -1,8 +1,9 @@
 # To run the tests, do:
 #
-#     nix-instantiate --eval --strict ./tests.nix
+#     nix-instantiate --eval --strict --expr 'import ./tests.nix {}'
+{ lib ? (import <nixpkgs> { }).lib }:
 
-with (import ../. { }).lib.extended;
+with import ./extension.nix { inherit lib; };
 let
   evalFailure = { success = false; value = false; };
 
