@@ -1,14 +1,27 @@
 { pkgs ? import <nixpkgs> { } }:
+
+with import ./lib/extension.nix { inherit (pkgs) lib; };
 let
-  newPkgs = import ./pkgs { inherit pkgs; };
-  patchedPkgs = import ./patches { pkgs = pkgs // newPkgs; };
-  aasgPkgs = newPkgs // patchedPkgs;
-in
-{
-  lib = import ./lib { inherit (pkgs) lib; };
-  modules = import ./modules;
-  overlays = {
-    pkgs = import ./pkgs/overlay.nix;
-    patches = import ./patches/overlay.nix;
+  overlayToPackageSet = overlays: manifest:
+    pipe overlays [
+      pkgs.appendOverlays
+      (copyAttrsByPath manifest)
+      recurseIntoAttrsRecursive
+    ];
+  self = {
+    lib = import ./lib { inherit (pkgs) lib; };
+    modules = import ./modules;
+    overlays = {
+      pkgs = import ./pkgs/overlay.nix;
+      patches = import ./patches/overlay.nix;
+    };
+    packageSets = {
+      pkgs = overlayToPackageSet [ self.overlays.pkgs ] (import ./pkgs/manifest.nix);
+      patches = overlayToPackageSet [ self.overlays.pkgs self.overlays.patches ] (import ./patches/manifest.nix);
+    };
   };
-} // aasgPkgs
+in
+foldl' recursiveUpdate self [
+  self.packageSets.pkgs
+  self.packageSets.patches
+]

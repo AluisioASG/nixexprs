@@ -3,7 +3,12 @@ let
   callLibs = file: import file { inherit lib; aasgLib = self; };
   self = rec {
     attrsets = callLibs ./attrsets.nix;
-    inherit (attrsets) capitalizeAttrNames updateNew updateNewRecursive;
+    inherit (attrsets)
+      capitalizeAttrNames
+      copyAttrsByPath
+      recurseIntoAttrsRecursive
+      updateNew
+      updateNewRecursive;
 
     declarativeEnvironments = callLibs ./declarative-env.nix;
     inherit (declarativeEnvironments) declareEnvironment baseEnvironment;

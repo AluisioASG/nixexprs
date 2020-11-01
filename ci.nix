@@ -1,19 +1,7 @@
-{ pkgs ? import <nixpkgs> { }
-, flake-utils-lib ? import (fetchTarball {
-    url = "https://github.com/numtide/flake-utils/archive/588973065fce51f4763287f0fda87a174d78bf48.tar.gz";
-    sha256 = "17h8rcp246y3444l9fp92jz1h5gp4gvgpnnd8rmhq686mdbha02r";
-  })
-}:
+{ pkgs ? import <nixpkgs> { } }:
 let
-  inherit (builtins) deepSeq concatStringsSep listToAttrs mapAttrs;
   inherit (pkgs) recurseIntoAttrs;
-  inherit (pkgs.lib.attrsets) filterAttrs getAttrFromPath isDerivation mapAttrsToList nameValuePair;
-  inherit (pkgs.lib.strings) splitString;
-  inherit (pkgs.lib.trivial) flip pipe;
-
-  newPackages = selectDerivations (import ./pkgs { inherit pkgs; });
-
-  patchedPackages = selectDerivations (import ./patches { pkgs = pkgs.extend (import ./pkgs/overlay.nix); });
+  inherit (pkgs.lib) deepSeq filterAttrs isDerivation mapAttrs pipe;
 
   selectDerivations = set:
     let
@@ -31,36 +19,12 @@ let
     in
     derivationTree (recurseIntoAttrs set);
 
-  flattenAttrsFromPaths = paths: set:
-    listToAttrs
-      (map
-        (path: nameValuePair (concatStringsSep "__" path) (getAttrFromPath path set))
-        paths);
-
-  packagePaths = (flip pipe) [
-    flake-utils-lib.flattenTree
-    (mapAttrsToList (name: _: splitString "/" name))
-  ];
-
+  self = import ./. { inherit pkgs; };
 in
 {
   lib = deepSeq (import ./lib/tests.nix { lib = pkgs.lib; }) { };
 
-  newPackagesDirect = newPackages;
+  newPackages = selectDerivations self.packageSets.pkgs;
 
-  newPackagesOverlay = pipe [ ./pkgs/overlay.nix ] [
-    (map import)
-    pkgs.appendOverlays
-    (flattenAttrsFromPaths (packagePaths newPackages))
-    recurseIntoAttrs
-  ];
-
-  patchedPackagesDirect = patchedPackages;
-
-  patchedPackagesOverlay = pipe [ ./pkgs/overlay.nix ./patches/overlay.nix ] [
-    (map import)
-    pkgs.appendOverlays
-    (flattenAttrsFromPaths (packagePaths patchedPackages))
-    recurseIntoAttrs
-  ];
+  patchedPackages = selectDerivations self.packageSets.patches;
 }

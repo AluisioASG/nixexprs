@@ -2,8 +2,8 @@ final: prev:
 
 {
 
-  haunt = import ./haunt { inherit (prev) haunt; };
+  haunt = final.callPackage ./haunt { inherit (prev) haunt; };
 
-  ipfs-cluster = import ./ipfs-cluster { inherit (prev) ipfs-cluster; };
+  ipfs-cluster = final.callPackage ./ipfs-cluster { inherit (prev) ipfs-cluster; };
 
 }

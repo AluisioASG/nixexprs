@@ -9,12 +9,14 @@
       inherit (flake-utils.lib) defaultSystems flattenTree;
       inherit (nixpkgs.lib.attrsets) filterAttrs genAttrs mapAttrs;
       inherit (nixpkgs.lib.strings) hasPrefix hasSuffix;
-      inherit (nixpkgs.lib.trivial) id pipe;
+      inherit (nixpkgs.lib.trivial) id flip pipe;
     in
     {
       #lib = import ./lib { inherit (nixpkgs) lib; };
       packages = genAttrs defaultSystems
-        (system: pipe (import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; }) [
+        (system: pipe (import ./. { pkgs = nixpkgs.legacyPackages.${system}; }) [
+          # Remove non–package attributes.
+          (flip builtins.removeAttrs [ "lib" "modules" "overlays" "packageSets" ])
           # Filter out linuxPackages before it gets evaluated.
           (if ! hasSuffix "linux" system
           then filterAttrs (attr: drv: ! hasPrefix "linuxPackages" attr)

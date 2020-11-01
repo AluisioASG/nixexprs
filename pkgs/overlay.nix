@@ -2,29 +2,29 @@ final: prev:
 
 {
 
-  dma = prev.callPackage ./tools/networking/dma { };
+  dma = final.callPackage ./tools/networking/dma { };
 
-  drep = prev.callPackage ./tools/text/drep { };
+  drep = final.callPackage ./tools/text/drep { };
 
-  dyndnsc = prev.callPackage ./tools/networking/dyndnsc { };
+  dyndnsc = final.callPackage ./tools/networking/dyndnsc { };
 
-  esbuild = prev.callPackage ./development/tools/esbuild { };
+  esbuild = final.callPackage ./development/tools/esbuild { };
 
-  guile-commonmark = prev.callPackage ./development/guile-modules/guile-commonmark { };
+  guile-commonmark = final.callPackage ./development/guile-modules/guile-commonmark { };
 
-  guile-json = prev.callPackage ./development/guile-modules/guile-json { };
+  guile-json = final.callPackage ./development/guile-modules/guile-json { };
 
-  haunt = prev.callPackage ./applications/misc/haunt { };
+  haunt = final.callPackage ./applications/misc/haunt { };
 
-  iwgtk = prev.callPackage ./applications/networking/iwgtk { };
+  iwgtk = final.callPackage ./applications/networking/iwgtk { };
 
   linuxPackagesFor = kernel:
     (prev.linuxPackagesFor kernel).extend (import ./os-specific/linux/kernel-packages.nix);
 
-  python3 = prev.python3.override { packageOverrides = import ./development/python-modules; };
+  python3 = prev.python3.override { packageOverrides = import ./development/python-modules; self = final.python3; };
 
-  shellharden = prev.callPackage ./development/tools/shellharden { };
+  shellharden = final.callPackage ./development/tools/shellharden { };
 
-  trust-dns = prev.callPackage ./servers/dns/trust-dns { };
+  trust-dns = final.callPackage ./servers/dns/trust-dns { };
 
 }

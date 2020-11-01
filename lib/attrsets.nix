@@ -1,6 +1,7 @@
 { lib, aasgLib }:
 let
   inherit (builtins) attrNames concatStringsSep intersectAttrs isAttrs;
+  inherit (lib) isDerivation;
 in
 rec {
   /*
@@ -11,6 +12,32 @@ rec {
   capitalizeAttrNames = /*attrs:*/
     lib.mapAttrs' (name: value: lib.nameValuePair (aasgLib.capitalize name) value);
 
+  /* copyAttrsByPath :: [[string] -> set -> set
+   *
+   * Recreate attrs recursively with only the attributes listed in
+   * paths.
+   */
+  copyAttrsByPath = paths: attrs:
+    builtins.foldl' updateNewRecursive { }
+      (map (path: lib.setAttrByPath path (lib.getAttrFromPath path attrs)) paths);
+
+  /* recurseIntoAttrs :: set -> set
+   *
+   * Polyfill of nixpkgs.recurseIntoAttrs for when it's not available
+   * under lib.
+   */
+  recurseIntoAttrs = lib.recurseIntoAttrs or (attrs: attrs // { recurseForDerivations = true; });
+
+  /* recurseIntoAttrsRecursive :: set -> set
+   *
+   * Recursive variant of recurseIntoAttrs, mark attrs as containing
+   * derivations recursively until a derivation or non-attrset value
+   * is reached.
+   */
+  recurseIntoAttrsRecursive = attrs:
+    if isAttrs attrs && ! isDerivation attrs
+    then recurseIntoAttrs (lib.mapAttrs (_: recurseIntoAttrsRecursive) attrs)
+    else attrs;
 
   /*
    * Like the update operator `//`, but throws if the right-hand
