@@ -5,48 +5,62 @@
   })
 }:
 let
-  inherit (pkgs.lib.attrsets) filterAttrs getAttrFromPath isDerivation listToAttrs mapAttrsToList nameValuePair recurseIntoAttrs;
-  inherit (pkgs.lib.strings) concatStringsSep splitString;
-  inherit (pkgs.lib.trivial) pipe;
+  inherit (builtins) deepSeq concatStringsSep listToAttrs mapAttrs;
+  inherit (pkgs) recurseIntoAttrs;
+  inherit (pkgs.lib.attrsets) filterAttrs getAttrFromPath isDerivation mapAttrsToList nameValuePair;
+  inherit (pkgs.lib.strings) splitString;
+  inherit (pkgs.lib.trivial) flip pipe;
 
-  newPackages = pipe (import ./pkgs { inherit pkgs; }) [
-    flake-utils-lib.flattenTree
-    (filterAttrs (_: isDerivation))
-    (mapAttrsToList (name: _: splitString "/" name))
-  ];
+  newPackages = selectDerivations (import ./pkgs { inherit pkgs; });
 
-  patchedPackages = pipe (import ./patches { inherit pkgs; }) [
-    flake-utils-lib.flattenTree
-    (filterAttrs (_: isDerivation))
-    (mapAttrsToList (name: _: splitString "/" name))
-  ];
+  patchedPackages = selectDerivations (import ./patches { pkgs = pkgs.extend (import ./pkgs/overlay.nix); });
+
+  selectDerivations = set:
+    let
+      derivationTree = value:
+        if isDerivation value
+        then value
+        else if value ? recurseForDerivations && value.recurseForDerivations == true
+        then
+          pipe value [
+            (mapAttrs (name: derivationTree))
+            (filterAttrs (name: value: value != null))
+            recurseIntoAttrs
+          ]
+        else null;
+    in
+    derivationTree (recurseIntoAttrs set);
 
   flattenAttrsFromPaths = paths: set:
     listToAttrs
       (map
         (path: nameValuePair (concatStringsSep "__" path) (getAttrFromPath path set))
         paths);
+
+  packagePaths = (flip pipe) [
+    flake-utils-lib.flattenTree
+    (mapAttrsToList (name: _: splitString "/" name))
+  ];
+
 in
 {
-  lib = builtins.deepSeq (import ./lib/tests.nix { lib = pkgs.lib; }) { };
+  lib = deepSeq (import ./lib/tests.nix { lib = pkgs.lib; }) { };
 
-  newPackagesDirect = pipe { inherit pkgs; } [
-    (import ./pkgs)
-    (flattenAttrsFromPaths newPackages)
-    recurseIntoAttrs
-  ];
+  newPackagesDirect = newPackages;
 
   newPackagesOverlay = pipe [ ./pkgs/overlay.nix ] [
     (map import)
     pkgs.appendOverlays
-    (flattenAttrsFromPaths newPackages)
+    (flattenAttrsFromPaths (packagePaths newPackages))
     recurseIntoAttrs
   ];
+
+  patchedPackagesDirect = patchedPackages;
 
   patchedPackagesOverlay = pipe [ ./pkgs/overlay.nix ./patches/overlay.nix ] [
     (map import)
     pkgs.appendOverlays
-    (flattenAttrsFromPaths patchedPackages)
+    (flattenAttrsFromPaths (packagePaths patchedPackages))
     recurseIntoAttrs
   ];
 }
