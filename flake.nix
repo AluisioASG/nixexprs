@@ -31,5 +31,7 @@
         pkgs = import ./pkgs/overlay.nix;
         patches = import ./patches/overlay.nix;
       };
+      overlay = final: prev:
+        nixpkgs.lib.composeExtensions self.overlays.pkgs self.overlays.patches final prev;
     };
 }
