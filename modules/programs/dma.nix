@@ -3,8 +3,6 @@ with import ../../lib/extension.nix { inherit lib; };
 let
   cfg = config.programs.dma;
 
-  package = pkgs.dma or (import ../../pkgs { inherit pkgs; }).dma;
-
   relayConfig = relay: ''
     SMARTHOST ${relay.host}
     PORT ${toString relay.port}
@@ -50,6 +48,13 @@ in
   options = {
     programs.dma = {
       enable = mkEnableOption "DragonFly Mail Agent";
+
+      package = mkOption {
+        default = pkgs.dma;
+        defaultText = "pkgs.dma";
+        type = types.package;
+        description = "dma package to use.";
+      };
 
       user = mkOption {
         type = types.str;
@@ -151,10 +156,10 @@ in
       groups.${cfg.group} = { };
     };
 
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [ cfg.package ];
     services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail {
       program = "sendmail";
-      source = "${package}/bin/dma";
+      source = "${cfg.package}/bin/dma";
       owner = cfg.user;
       group = cfg.group;
       setuid = true;
