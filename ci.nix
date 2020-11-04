@@ -1,16 +1,21 @@
 { pkgs ? import <nixpkgs> { } }:
 let
-  inherit (pkgs) recurseIntoAttrs;
-  inherit (pkgs.lib) deepSeq filterAttrs isDerivation mapAttrs pipe;
+  inherit (pkgs) recurseIntoAttrs stdenv;
+  inherit (pkgs.lib) deepSeq filterAttrs hasPrefix isDerivation mapAttrs pipe;
 
   selectDerivations = set:
     let
       derivationTree = value:
-        if isDerivation value
+        # Output derivations directly, but only if they're compatible
+        # with this platform.
+        if isDerivation value && builtins.elem pkgs.system value.meta.platforms
         then value
         else if value ? recurseForDerivations && value.recurseForDerivations == true
         then
           pipe value [
+            # Don't evaluate linuxPackages outside Linux, or it will
+            # break everything.
+            (filterAttrs (name: value: ! stdenv.isLinux -> ! hasPrefix "linuxPackages" name))
             (mapAttrs (name: derivationTree))
             (filterAttrs (name: value: value != null))
             recurseIntoAttrs
