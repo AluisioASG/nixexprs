@@ -4,7 +4,9 @@ final: prev:
 
   dma = final.callPackage ./tools/networking/dma { };
 
-  drep = final.callPackage ./tools/text/drep { };
+  drep = final.callPackage ./tools/text/drep {
+    inherit (final.darwin.apple_sdk.frameworks) CoreServices;
+  };
 
   dyndnsc = final.callPackage ./tools/networking/dyndnsc { };
 
