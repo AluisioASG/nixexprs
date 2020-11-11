@@ -1,6 +1,6 @@
 { lib, aasgLib }:
 let
-  inherit (builtins) attrNames concatStringsSep intersectAttrs isAttrs;
+  inherit (builtins) attrNames concatMap concatStringsSep intersectAttrs isAttrs listToAttrs;
   inherit (lib) isDerivation;
 in
 rec {
@@ -12,7 +12,16 @@ rec {
   capitalizeAttrNames = /*attrs:*/
     lib.mapAttrs' (name: value: lib.nameValuePair (aasgLib.capitalize name) value);
 
-  /* copyAttrsByPath :: [[string] -> set -> set
+  /* concatMapAttrs' :: set -> (string -> any -> [NameValuePair]) -> set
+   *
+   * What `concatMap` is to `map`, this is to `mapAttrs'`.  Namely,
+   * call a function to produce multiple attributes for each attribute
+   * in the passed set.
+   */
+  concatMapAttrs' = mapper: attrs:
+    listToAttrs (concatMap (name: mapper name attrs.${name}) (attrNames attrs));
+
+  /* copyAttrsByPath :: [string] -> set -> set
    *
    * Recreate attrs recursively with only the attributes listed in
    * paths.

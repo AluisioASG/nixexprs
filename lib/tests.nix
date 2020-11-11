@@ -39,6 +39,22 @@ runTestsOrDieTrying {
     expected = { ServiceConfig = { execStart = "/bin/false"; }; };
   };
 
+  testConcatMapAttrs1 = {
+    expr = concatMapAttrs' (n: v: singleton nameValuePair v n) { };
+    expected = { };
+  };
+
+  testConcatMapAttrs2 = {
+    expr = concatMapAttrs' (n: v: singleton (nameValuePair (toString v) n)) { x = 1; y = 2; };
+    expected = { "1" = "x"; "2" = "y"; };
+  };
+
+  # TODO: what is the expected behavior here?
+  #testConcatMapAttrs3 = {
+  #  expr = concatMapAttrs' (n: v: singleton (nameValuePair (toString v) n)) { z = 1; y = 1; };
+  #  expected = { "1" = "x"; };
+  #};
+
   testUpdateNew1 = {
     expr = updateNew { } { };
     expected = { };
