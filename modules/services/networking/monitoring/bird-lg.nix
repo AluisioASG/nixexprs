@@ -75,6 +75,7 @@ in
       after = [ "bird.service" "bird6.service" "bird2.service" "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
+        BIRD_LG_CONFIG = ./bird-lg-config.py;
         BIRD_LG_CONFIG_FILES = concatStringsSep ":" ([
           (settingsFormat.generate "bird-lg-gunicorn.json" cfg.server.gunicornSettings)
           (settingsFormat.generate "bird-lg.json" cfg.server.appSettings)
@@ -82,7 +83,7 @@ in
       };
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.bird-lg}/bin/bird-lg-webservice --config=${pkgs.bird-lg}/config-loader.py";
+        ExecStart = "${pkgs.bird-lg}/bin/bird-lg-webservice --config=\${BIRD_LG_CONFIG}";
         Restart = "on-failure";
 
         DynamicUser = true;
@@ -117,6 +118,7 @@ in
       after = [ "bird.service" "bird6.service" "bird2.service" "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
+        BIRD_LG_CONFIG = ./bird-lg-config.py;
         BIRD_LG_CONFIG_FILES = concatStringsSep ":" ([
           (settingsFormat.generate "bird-lgproxy-gunicorn.json" cfg.client.gunicornSettings)
           (settingsFormat.generate "bird-lgproxy.json" cfg.client.appSettings)
@@ -124,7 +126,7 @@ in
       };
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.bird-lg}/bin/bird-lg-proxy --config=${pkgs.bird-lg}/config-loader.py";
+        ExecStart = "${pkgs.bird-lg}/bin/bird-lg-proxy --config=\${BIRD_LG_CONFIG}";
         Restart = "on-failure";
 
         DynamicUser = true;
