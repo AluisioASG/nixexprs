@@ -59,6 +59,16 @@ in
     # Server setup #
     ################
 
+    services.bird-lg.server.appSettings = {
+      DEBUG = mkDefault true;
+      PROXY = mkDefault { };
+      PROXY_TIMEOUT = mkDefault {
+        bird = 10;
+        traceroute = 60;
+      };
+      UNIFIED_DAEMON = mkDefault true;
+    };
+
     systemd.services.bird-lg-server = mkIf cfg.server.enable {
       description = "BIRD looking glass web server";
       requires = [ "network-online.target" ];
@@ -93,6 +103,13 @@ in
     ######################
     # Client proxy setup #
     ######################
+
+    services.bird-lg.client.appSettings = {
+      DEBUG = mkDefault false;
+      LOG_LEVEL = "WARNING";
+      BIRD_SOCKET = "/run/bird.ctl";
+      BIRD6_SOCKET = "/run/bird6.ctl";
+    };
 
     systemd.services.bird-lg-client = mkIf cfg.client.enable {
       description = "BIRD looking glass client proxy";
