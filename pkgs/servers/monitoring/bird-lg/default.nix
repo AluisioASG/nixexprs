@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, graphviz, python3, traceroute, whois }:
+{ stdenv, fetchFromGitHub, fetchpatch, graphviz, python3, traceroute, whois }:
 let
   runtimeDeps = [
     (python3.withPackages (ps: with ps; [
@@ -23,6 +23,14 @@ stdenv.mkDerivation rec {
     rev = "f3699a3b61f2d9f77cb17fb163bcf3c3ad722835"; # refs/head/burble-clean
     sha256 = "0gisi6mbfclw36kms3qy3b0wzcwdkd50p2a6xdwggln4fi5y6bh1";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "fix-bgpmap-generation.patch";
+      url = "https://github.com/sesa-me/bird-lg/commit/db8fb829d51889fab61bfb5ffac89199442d3117.patch";
+      sha256 = "1vwr7ck5v7w4fr78kbc4wxyj3licsw7h0772xkmmxsb8vp9vcihg";
+    })
+  ];
 
   postPatch = ''
     # Don't configure a log file; let systemd handle it.
