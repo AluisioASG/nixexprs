@@ -28,10 +28,9 @@ stdenv.mkDerivation rec {
     # Don't configure a log file; let systemd handle it.
     sed -i '/file_handler/d' lg.py lgproxy.py
 
-    # Support loading config from a JSON file so we don't have to learn
-    # how to escape strings in Python code.
-    sed -i '/app\.config\.from_pyfile/a app.config.from_json("lg.json")' lg.py
-    sed -i '/app\.config\.from_pyfile/a app.config.from_json("lgproxy.json")' lgproxy.py
+    # Replace the builtin config file with one that reads JSON files
+    # given through an environment variable.
+    sed -i '/app\.config\.from_pyfile/c app.config.from_pyfile("config-loader.py")' lg.py lgproxy.py
   '';
 
   WRAPPER_PATH = stdenv.lib.makeBinPath runtimeDeps;
@@ -51,6 +50,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
     mkdir -p $out $out/bin
     cp -r * $out
+    cp ${./config-loader.py} $out/config-loader.py
     touch $out/__init__.py
     wrapWSGI lg:app $out/bin/bird-lg-webservice
     wrapWSGI lgproxy:app $out/bin/bird-lg-proxy
