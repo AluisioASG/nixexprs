@@ -5,9 +5,13 @@ let
   cfg = config.services.matrix-appservice-irc;
   pkg = cfg.package;
 
-  configSchema = pkgs.runCommand "matrix-appservice-irc-schema.json" { } ''
-    ${pkgs.remarshal}/bin/remarshal -if yaml -of json <${pkg}/lib/node_modules/matrix-appservice-irc/config.schema.yml >$out
-  '';
+  configSchema = pkgs.runCommand "matrix-appservice-irc-schema.json"
+    {
+      nativeBuildInputs = with pkgs; [ remarshal ];
+    }
+    ''
+      remarshal -if yaml -of json <${pkg}/lib/node_modules/matrix-appservice-irc/config.schema.yml >$out
+    '';
   configFile = pkgs.runCommandLocal "matrix-appservice-irc.json"
     {
       nativeBuildInputs = [ (pkgs.python3.withPackages (ps: [ ps.jsonschema ])) ];
@@ -18,7 +22,6 @@ let
       python -m jsonschema ${configSchema} -i $configPath
       cp $configPath $out
     '';
-
   registrationFile =
     let
       hs = cfg.settings.homeserver;
@@ -28,11 +31,15 @@ let
         else hs.bindHostname;
       serviceUrl = "http://${hostname}:${toString hs.bindPort}";
     in
-    pkgs.runCommandLocal "matrix-appservice-registration-irc.yaml" { } ''
-      ${pkg}/bin/matrix-appservice-irc --config ${configFile} --file $out \
-        --generate-registration \
-        --url "${serviceUrl}"
-    '';
+    pkgs.runCommandLocal "matrix-appservice-registration-irc.json"
+      {
+        nativeBuildInputs = with pkgs; [ jq remarshal ];
+      }
+      ''
+        ${pkg}/bin/matrix-appservice-irc --config ${configFile} --file registration.yaml --generate-registration --url "${serviceUrl}"
+        remarshal -if yaml -of json <registration.yaml >registration.json
+        jq 'del(.id, .as_token, .hs_token)' <registration.json >$out
+      '';
 in
 {
   options = {
@@ -63,11 +70,6 @@ in
           { "chat.freenode.net" = "/etc/matrix-appservice-irc/freenode.password"; }
         '';
       };
-
-      registrationFile = mkOption {
-        type = types.path;
-        description = "Path to the registration file (generated automatically).";
-      };
     };
   };
 
@@ -80,16 +82,15 @@ in
         }
       ];
 
-    services.matrix-appservice-irc.registrationFile = registrationFile;
-
     systemd.services.matrix-appservice-irc = {
       description = "Matrix bridge to IRC";
       wantedBy = [ "multi-user.target" ];
+      path = with pkgs; [ jq openssl ];
       preStart =
         let
-          botPasswords = mapAttrsToList
+          readBotPasswords = mapAttrsToList
             (server: passwordFile: ''
-              ${pkgs.jq}/bin/jq --null-input \
+              jq --null-input \
                 --arg server "${server}" --rawfile password "${passwordFile}" \
                 '{ircService: {servers: {($server): {botConfig: {password: $password | rtrimstr("\n")}}}}}'
             '')
@@ -97,23 +98,35 @@ in
         in
         ''
           set -euo pipefail
-          umask 077
+          cd /etc/matrix-appservice-irc
+
+          function mergeJSON {
+            jq --slurp 'reduce .[] as $item ({}; . * $item)' "$@"
+          }
+
           # Replace bot passwords in config file.
-          {
-            ${concatStringsSep "\n" botPasswords}
-          } | ${pkgs.jq}/bin/jq --slurp 'reduce .[] as $item ({}; . * $item)' \
-            ${configFile} - >$RUNTIME_DIRECTORY/config.json
+          umask 077
+          { ${concatStringsSep "\n" readBotPasswords} } | mergeJSON ${configFile} - >config.json
+
+          # Create the registration secrets, if necessary.
+          umask 077
+          if [[ ! -f registration-secrets.json ]]; then
+            openssl rand -hex 64 \
+            | jq --arg id "matrix-appservice-irc" --raw-input '{$id, as_token: .[:64], hs_token: .[64:]}' \
+            >registration-secrets.json
+          fi
+
+          # Merge the registration secrets and the registration file.
+          umask 027
+          mergeJSON ${registrationFile} registration-secrets.json >registration.yaml
         '';
       serviceConfig = rec {
         Type = "simple";
-        ExecStart = "${pkg}/bin/matrix-appservice-irc --config \${RUNTIME_DIRECTORY}/config.json --file ${registrationFile}";
+        ExecStart = "${pkg}/bin/matrix-appservice-irc --config /etc/matrix-appservice-irc/config.json --file /etc/matrix-appservice-irc/registration.yaml";
         DynamicUser = true;
         ProtectHome = true;
         PrivateDevices = true;
         ConfigurationDirectory = "matrix-appservice-irc";
-        ConfigurationDirectoryMode = "0700";
-        RuntimeDirectory = "matrix-appservice-irc";
-        RuntimeDirectoryMode = "0700";
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectControlGroups = true;
