@@ -10,6 +10,7 @@
   [ "iwgtk" ]
   [ "linuxPackages" "rtl8723bu" ]
   [ "linuxPackages_latest" "rtl8723bu" ]
+  [ "matrix-appservice-irc" ]
   [ "python3Packages" "daemonocle" ]
   [ "shellharden" ]
   [ "trust-dns" ]

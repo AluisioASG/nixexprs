@@ -25,6 +25,10 @@ final: prev:
   linuxPackagesFor = kernel:
     (prev.linuxPackagesFor kernel).extend (import ./os-specific/linux/kernel-packages.nix);
 
+  matrix-appservice-irc = final.callPackage ./servers/matrix-synapse/matrix-appservice-irc {
+    nodejs = final.nodejs-12_x;
+  };
+
   python3 = prev.python3.override { packageOverrides = import ./development/python-modules; self = final.python3; };
 
   shellharden = final.callPackage ./development/tools/shellharden { };
