@@ -40,6 +40,39 @@ let
         remarshal -if yaml -of json <registration.yaml >registration.json
         jq 'del(.id, .as_token, .hs_token)' <registration.json >$out
       '';
+
+  reconfigureScript = pkgs.writeScript "matrix-appservice-reconfigure" ''
+    #!${pkgs.stdenv.shell}
+    set -euo pipefail
+    PATH=${makeBinPath [ pkgs.jq pkgs.openssl ]}
+    cd /etc/matrix-appservice-irc
+
+    function mergeJSON {
+      jq --slurp 'reduce .[] as $item ({}; . * $item)' "$@"
+    }
+
+    # Replace bot passwords in config file.
+    umask 077
+    {
+    ${concatStringsSep "\n" (flip mapAttrsToList cfg.botPasswordFiles (server: passwordFile: ''
+      jq --null-input \
+        --arg server "${server}" --rawfile password "${passwordFile}" \
+        '{ircService: {servers: {($server): {botConfig: {password: $password | rtrimstr("\n")}}}}}'
+    ''))}
+    } | mergeJSON ${configFile} - >config.json
+
+    # Create the registration secrets, if necessary.
+    umask 077
+    if [[ ! -f registration-secrets.json ]]; then
+      openssl rand -hex 64 \
+      | jq --arg id "matrix-appservice-irc" --raw-input '{$id, as_token: .[:64], hs_token: .[64:]}' \
+      >registration-secrets.json
+    fi
+
+    # Merge the registration secrets and the registration file.
+    umask 027
+    mergeJSON ${registrationFile} registration-secrets.json >registration.yaml
+  '';
 in
 {
   options = {
@@ -85,44 +118,11 @@ in
     systemd.services.matrix-appservice-irc = {
       description = "Matrix bridge to IRC";
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ jq openssl ];
-      preStart =
-        let
-          readBotPasswords = mapAttrsToList
-            (server: passwordFile: ''
-              jq --null-input \
-                --arg server "${server}" --rawfile password "${passwordFile}" \
-                '{ircService: {servers: {($server): {botConfig: {password: $password | rtrimstr("\n")}}}}}'
-            '')
-            cfg.botPasswordFiles;
-        in
-        ''
-          set -euo pipefail
-          cd /etc/matrix-appservice-irc
-
-          function mergeJSON {
-            jq --slurp 'reduce .[] as $item ({}; . * $item)' "$@"
-          }
-
-          # Replace bot passwords in config file.
-          umask 077
-          { ${concatStringsSep "\n" readBotPasswords} } | mergeJSON ${configFile} - >config.json
-
-          # Create the registration secrets, if necessary.
-          umask 077
-          if [[ ! -f registration-secrets.json ]]; then
-            openssl rand -hex 64 \
-            | jq --arg id "matrix-appservice-irc" --raw-input '{$id, as_token: .[:64], hs_token: .[64:]}' \
-            >registration-secrets.json
-          fi
-
-          # Merge the registration secrets and the registration file.
-          umask 027
-          mergeJSON ${registrationFile} registration-secrets.json >registration.yaml
-        '';
       serviceConfig = rec {
         Type = "simple";
+        ExecStartPre = reconfigureScript;
         ExecStart = "${pkg}/bin/matrix-appservice-irc --config /etc/matrix-appservice-irc/config.json --file /etc/matrix-appservice-irc/registration.yaml";
+        ExecReload = [ reconfigureScript "${pkgs.coreutils}/bin/kill -HUP $MAINPID" ];
         DynamicUser = true;
         ProtectHome = true;
         PrivateDevices = true;
