@@ -11,6 +11,12 @@ in
     services.bird-lg.server = {
       enable = mkEnableOption "BIRD looking glass server";
 
+      logToSyslog = mkOption {
+        description = "Whether to log to journald via syslog instead of writing to stderr.";
+        type = types.bool;
+        default = true;
+      };
+
       appSettings = mkOption {
         description = "Configuration for bird-lg's server.";
         type = settingsFormat.type;
@@ -32,6 +38,12 @@ in
 
     services.bird-lg.client = {
       enable = mkEnableOption "BIRD looking glass client proxy";
+
+      logToSyslog = mkOption {
+        description = "Whether to log to journald via syslog instead of writing to stderr.";
+        type = types.bool;
+        default = true;
+      };
 
       appSettings = mkOption {
         description = "Configuration for bird-lg's client proxy.";
@@ -70,6 +82,12 @@ in
       UNIFIED_DAEMON = mkDefault true;
     };
 
+    services.bird-lg.server.gunicornSettings = mkIf cfg.server.logToSyslog {
+      errorlog = mkDefault "/dev/null";
+      syslog = mkDefault true;
+      syslog_addr = mkDefault "unix:///dev/log";
+    };
+
     systemd.services.bird-lg-server = mkIf cfg.server.enable {
       description = "BIRD looking glass web server";
       requires = [ "network-online.target" ];
@@ -81,6 +99,7 @@ in
           (settingsFormat.generate "bird-lg-gunicorn.json" cfg.server.gunicornSettings)
           (settingsFormat.generate "bird-lg.json" cfg.server.appSettings)
         ] ++ cfg.server.extraConfigFiles);
+        BIRD_LG_SYSLOG = toString cfg.server.logToSyslog;
       };
       serviceConfig = {
         Type = "simple";
@@ -113,6 +132,12 @@ in
       BIRD6_SOCKET = mkDefault "/run/bird6.ctl";
     };
 
+    services.bird-lg.client.gunicornSettings = mkIf cfg.client.logToSyslog {
+      errorlog = mkDefault "/dev/null";
+      syslog = mkDefault true;
+      syslog_addr = mkDefault "unix:///dev/log#dgram";
+    };
+
     systemd.services.bird-lg-client = mkIf cfg.client.enable {
       description = "BIRD looking glass client proxy";
       requires = [ "network-online.target" ];
@@ -124,6 +149,7 @@ in
           (settingsFormat.generate "bird-lgproxy-gunicorn.json" cfg.client.gunicornSettings)
           (settingsFormat.generate "bird-lgproxy.json" cfg.client.appSettings)
         ] ++ cfg.client.extraConfigFiles);
+        BIRD_LG_SYSLOG = toString cfg.client.logToSyslog;
       };
       serviceConfig = {
         Type = "simple";
