@@ -61,6 +61,7 @@ in
 
     services.bird-lg.server.appSettings = {
       DEBUG = mkDefault true;
+      LOG_LEVEL = mkDefault "WARNING";
       PROXY = mkDefault { };
       PROXY_TIMEOUT = mkDefault {
         bird = 10;
@@ -107,9 +108,9 @@ in
 
     services.bird-lg.client.appSettings = {
       DEBUG = mkDefault false;
-      LOG_LEVEL = "WARNING";
-      BIRD_SOCKET = "/run/bird.ctl";
-      BIRD6_SOCKET = "/run/bird6.ctl";
+      LOG_LEVEL = mkDefault "WARNING";
+      BIRD_SOCKET = mkDefault "/run/bird.ctl";
+      BIRD6_SOCKET = mkDefault "/run/bird6.ctl";
     };
 
     systemd.services.bird-lg-client = mkIf cfg.client.enable {
