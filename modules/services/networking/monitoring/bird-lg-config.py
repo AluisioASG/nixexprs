@@ -2,6 +2,7 @@
 # global namespace.
 def _config_loader_main():
     """ Loads bird-lg and gunicorn config files. """
+    import os
 
     def log_to_syslog():
         """ Configures the logging module to log everything to syslog. """
@@ -27,7 +28,6 @@ def _config_loader_main():
     def load_config_files():
         """ Loads JSON config files specified in the BIRD_LG_CONFIG_FILES environment variable. """
         import json
-        import os
 
         for filename in os.environ["BIRD_LG_CONFIG_FILES"].split(os.pathsep):
             with open(filename, "r") as file:
