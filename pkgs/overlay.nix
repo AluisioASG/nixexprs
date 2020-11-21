@@ -2,8 +2,6 @@ final: prev:
 
 {
 
-  bird-lg = final.callPackage ./servers/monitoring/bird-lg { };
-
   dma = final.callPackage ./tools/networking/dma { };
 
   drep = final.callPackage ./tools/text/drep {

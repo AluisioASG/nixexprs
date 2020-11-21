@@ -1,5 +1,4 @@
 {
-  bird-lg = ./services/networking/monitoring/bird-lg.nix;
   dma = ./programs/dma.nix;
   dyndnsc = ./services/networking/dyndnsc.nix;
   ipfs-cluster = ./services/cluster/ipfs-cluster.nix;

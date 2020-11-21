@@ -1,5 +1,4 @@
 [
-  [ "bird-lg" ]
   [ "dma" ]
   [ "drep" ]
   [ "dyndnsc" ]
