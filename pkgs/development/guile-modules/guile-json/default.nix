@@ -12,15 +12,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ guile ];
 
-  configureFlags = [
-    "--datarootdir=$(out)/share"
-    "--libdir=$(out)/share"
-  ];
-  makeFlags = [
-    "GUILE_EFFECTIVE_VERSION="
-    "objdir=$(out)/share/guile/site/site-ccache"
-  ];
-
   doCheck = true;
 
   meta = with lib; {

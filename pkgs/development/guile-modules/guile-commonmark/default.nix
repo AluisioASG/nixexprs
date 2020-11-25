@@ -27,11 +27,6 @@ stdenv.mkDerivation rec {
     sed -i '/setlocale/d' tests/inlines/*.scm
   '';
 
-  makeFlags = [
-    "moddir=$(out)/share/guile/site"
-    "godir=$(out)/share/guile/site/site-ccache"
-  ];
-
   doCheck = true;
 
   meta = with lib; {
