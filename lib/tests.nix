@@ -159,6 +159,75 @@ runTestsOrDieTrying {
     expected = true;
   };
 
+  ########
+  # math #
+  ########
+
+  testAbs1 = {
+    expr = abs 0;
+    expected = 0;
+  };
+
+  testAbs2 = {
+    expr = abs (-1);
+    expected = 1;
+  };
+
+  testAbs3 = {
+    expr = abs 1;
+    expected = 1;
+  };
+
+  testAbs4 = {
+    expr = abs 9223372036854775807;
+    expected = 9223372036854775807;
+  };
+
+  testAbs5 = {
+    expr = abs (-9223372036854775807);
+    expected = 9223372036854775807;
+  };
+
+  testPow0 = {
+    expr = pow 0 0;
+    expected = 1;
+  };
+
+  testPow1 = {
+    expr = pow 1 0;
+    expected = 1;
+  };
+
+  testPow2 = {
+    expr = pow 0 1;
+    expected = 0;
+  };
+
+  testPow3 = {
+    expr = pow 0 2;
+    expected = 0;
+  };
+
+  testPow4 = {
+    expr = pow 2 32;
+    expected = 4294967296;
+  };
+
+  testPow5 = {
+    expr = pow (-2) 32;
+    expected = 4294967296;
+  };
+
+  testPow6 = {
+    expr = pow (-9) 3;
+    expected = -729;
+  };
+
+  testPow7 = {
+    expr = pow (-3) 5;
+    expected = -243;
+  };
+
   ###########
   # strings #
   ###########

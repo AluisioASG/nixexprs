@@ -19,6 +19,9 @@ let
     lists = callLibs ./lists.nix;
     inherit (lists) indexOf isSubsetOf;
 
+    math = callLibs ./math.nix;
+    inherit (math) abs pow;
+
     strings = callLibs ./strings.nix;
     inherit (strings) capitalize;
   };
