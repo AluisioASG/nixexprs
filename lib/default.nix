@@ -23,7 +23,7 @@ let
     inherit (math) abs pow;
 
     strings = callLibs ./strings.nix;
-    inherit (strings) capitalize;
+    inherit (strings) capitalize parseHex;
   };
 in
 self

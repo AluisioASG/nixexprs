@@ -258,4 +258,39 @@ runTestsOrDieTrying {
     expected = "TestCapitalize5";
   };
 
+  testParseHex1 = {
+    expr = parseHex "";
+    expected = 0;
+  };
+
+  testParseHex2 = {
+    expr = builtins.tryEval (parseHex "-1");
+    expected = evalFailure;
+  };
+
+  testParseHex3 = {
+    expr = parseHex "0";
+    expected = 0;
+  };
+
+  testParseHex4 = {
+    expr = parseHex "f5";
+    expected = 245;
+  };
+
+  testParseHex5 = {
+    expr = parseHex "100000000";
+    expected = 4294967296;
+  };
+
+  testParseHex6 = {
+    expr = parseHex "7fffffffffffffff";
+    expected = 9223372036854775807;
+  };
+
+  testParseHex7 = {
+    expr = parseHex "10000000000000000";
+    expected = null;
+  };
+
 }
