@@ -10,6 +10,7 @@
   [ "linuxPackages" "rtl8723bu" ]
   [ "linuxPackages_latest" "rtl8723bu" ]
   [ "matrix-appservice-irc" ]
+  [ "prometheus-bird-exporter" ]
   [ "python3Packages" "daemonocle" ]
   [ "shellharden" ]
   [ "trust-dns" ]

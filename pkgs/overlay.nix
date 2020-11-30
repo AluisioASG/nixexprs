@@ -27,6 +27,8 @@ final: prev:
     nodejs = final.nodejs-12_x;
   };
 
+  prometheus-bird-exporter = final.callPackage ./servers/monitoring/prometheus/bird-exporter.nix { };
+
   python3 = prev.python3.override { packageOverrides = import ./development/python-modules; self = final.python3; };
 
   shellharden = final.callPackage ./development/tools/shellharden { };
