@@ -22,67 +22,67 @@ let
         sha512 = "+A1YivoVDNNVCdfozHSR8v/jyuuLTMXwjWuxPFlFlUapXoGc+Gj9mDlTDDfrwl7rXCl2tNZ0kE8sIBO6YOn96Q==";
       };
     };
-    "@sentry/core-5.27.4" = {
+    "@sentry/core-5.27.6" = {
       name = "_at_sentry_slash_core";
       packageName = "@sentry/core";
-      version = "5.27.4";
+      version = "5.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/core/-/core-5.27.4.tgz";
-        sha512 = "IbI37cIZU/qBQouuUXaLbGF/9xYFp5STqmj1Gv64l0IZe4JnEp06V3yD5GxQ/mJ78vSfOqfwLooVCUw9FA61sQ==";
+        url = "https://registry.npmjs.org/@sentry/core/-/core-5.27.6.tgz";
+        sha512 = "izCS5iyc6HAfpW1AsGXLAKetx82C1Sq1siAh97tOlSK58PVJAEH/WMiej9WuZJxCDTOtj94QtoLflssrZyAtFg==";
       };
     };
-    "@sentry/hub-5.27.4" = {
+    "@sentry/hub-5.27.6" = {
       name = "_at_sentry_slash_hub";
       packageName = "@sentry/hub";
-      version = "5.27.4";
+      version = "5.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/hub/-/hub-5.27.4.tgz";
-        sha512 = "Ba1AqcjvSd2S+fpdXtXCrVXdrzq9E2Etb2eHUOkEYwSsq7StMOw7E8YHDPAo+to8zUbpMPz/Z9XGhFkyAbImGQ==";
+        url = "https://registry.npmjs.org/@sentry/hub/-/hub-5.27.6.tgz";
+        sha512 = "bOMky3iu7zEghSaWmTayfme5tCpUok841qDCGxGKuyAtOhBDsgGNS/ApNEEDF2fyX0oo4G1cHYPWhX90ZFf/xA==";
       };
     };
-    "@sentry/minimal-5.27.4" = {
+    "@sentry/minimal-5.27.6" = {
       name = "_at_sentry_slash_minimal";
       packageName = "@sentry/minimal";
-      version = "5.27.4";
+      version = "5.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/minimal/-/minimal-5.27.4.tgz";
-        sha512 = "biw5YfIQwvDoaRhLarfeRQ6MJ9UJOoDTmu8Kgg18prJy4rtfDowNJP0OBs5XAsTk6SWAXiE3g7vqUJBXgs7BWA==";
+        url = "https://registry.npmjs.org/@sentry/minimal/-/minimal-5.27.6.tgz";
+        sha512 = "pKhzVQX9nL4m1dcnb2i2Y47IWVNs+K3wiYLgCB9hl9+ApxppfOc+fquiFoCloST3IuaD4yly2TtbOJgAMWcMxQ==";
       };
     };
-    "@sentry/node-5.27.4" = {
+    "@sentry/node-5.27.6" = {
       name = "_at_sentry_slash_node";
       packageName = "@sentry/node";
-      version = "5.27.4";
+      version = "5.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/node/-/node-5.27.4.tgz";
-        sha512 = "fv3FfQ6FiNV56LKk6t48oNw8qgf7X5fEhqhvKAoU7w+BL9AhChzh9v7sWn9ppDtRFE45tFfsZh0J/8ox5jpnfQ==";
+        url = "https://registry.npmjs.org/@sentry/node/-/node-5.27.6.tgz";
+        sha512 = "ogKL4F3wSZuzNeHOGKPqQPbZ87Bd/dC8wk7Rwbui3SIMgtoUmO3rSOR4Edwar6mf330cA6CY9roylWdcaSqmZA==";
       };
     };
-    "@sentry/tracing-5.27.4" = {
+    "@sentry/tracing-5.27.6" = {
       name = "_at_sentry_slash_tracing";
       packageName = "@sentry/tracing";
-      version = "5.27.4";
+      version = "5.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/tracing/-/tracing-5.27.4.tgz";
-        sha512 = "f3nG8ozCdcbFOzsnBCZ8w+/WfoNiAd0Ctr643L0rsFbaSzPWxbPMe3LNVrWwFVo6mHacG3/2HYmJ3CYMiWyTKQ==";
+        url = "https://registry.npmjs.org/@sentry/tracing/-/tracing-5.27.6.tgz";
+        sha512 = "ms3vprEId+hi8hcqtf8weqsNGASaDXAZzIOT4g2gASGpwLb5hLuScpM8z6Yhu5FGjb8DektlW5OrXJSsStIozw==";
       };
     };
-    "@sentry/types-5.27.4" = {
+    "@sentry/types-5.27.6" = {
       name = "_at_sentry_slash_types";
       packageName = "@sentry/types";
-      version = "5.27.4";
+      version = "5.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/types/-/types-5.27.4.tgz";
-        sha512 = "41h3c7tgtSS8UBmfvEckSr+7V7/IVOjt/EiydyOd6s0N18zSFfGY5HdA6g+eFtIJK3DhWkUHCHZNanD5IY5YCQ==";
+        url = "https://registry.npmjs.org/@sentry/types/-/types-5.27.6.tgz";
+        sha512 = "XOW9W8DrMk++4Hk7gWi9o5VR0o/GrqGfTKyFsHSIjqt2hL6kiMPvKeb2Hhmp7Iq37N2bDmRdWpM5m+68S2Jk6w==";
       };
     };
-    "@sentry/utils-5.27.4" = {
+    "@sentry/utils-5.27.6" = {
       name = "_at_sentry_slash_utils";
       packageName = "@sentry/utils";
-      version = "5.27.4";
+      version = "5.27.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/utils/-/utils-5.27.4.tgz";
-        sha512 = "shV1I/q+Tob3hUxRj11DfMhe9PNDiv85hUUoRloZGGwu275dMwpswb2uwgSmjc2Ao4pnMKVx8TL1hC3kGLVHTQ==";
+        url = "https://registry.npmjs.org/@sentry/utils/-/utils-5.27.6.tgz";
+        sha512 = "/QMVLv+zrTfiIj2PU+SodSbSzD5MmamMOaljkDsRIVsj6gpkm1/VG1g2+40TZ0FbQ4hCW2F+iR7cnqzZBNmchA==";
       };
     };
     "@types/body-parser-1.19.0" = {
@@ -112,13 +112,13 @@ let
         sha512 = "SDzEIZInC4sivGIFY4Sz1GG6J9UObPwCInYJjko2jzOf/Imx/dlpume6Xxwj1ORL82tBbmN4cPDIDkLbWHk9hw==";
       };
     };
-    "@types/express-serve-static-core-4.17.13" = {
+    "@types/express-serve-static-core-4.17.14" = {
       name = "_at_types_slash_express-serve-static-core";
       packageName = "@types/express-serve-static-core";
-      version = "4.17.13";
+      version = "4.17.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.13.tgz";
-        sha512 = "RgDi5a4nuzam073lRGKTUIaL3eF2+H7LJvJ8eUnCI0wA6SNjXc44DCmWNiTLs/AZ7QlsFWZiw/gTG3nSQGL0fA==";
+        url = "https://registry.npmjs.org/@types/express-serve-static-core/-/express-serve-static-core-4.17.14.tgz";
+        sha512 = "uFTLwu94TfUFMToXNgRZikwPuZdOtDgs3syBtAIr/OXorL1kJqUJT9qCLnRZ5KBOWfZQikQ2xKgR2tnDj1OgDA==";
       };
     };
     "@types/mime-2.0.3" = {
@@ -130,13 +130,13 @@ let
         sha512 = "Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==";
       };
     };
-    "@types/node-14.14.7" = {
+    "@types/node-14.14.10" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "14.14.7";
+      version = "14.14.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-14.14.7.tgz";
-        sha512 = "Zw1vhUSQZYw+7u5dAwNbIA9TuTotpzY/OF7sJM9FqPOF3SPjKnxrjoTktXDZgUjybf4cWVBP7O8wvKdSaGHweg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-14.14.10.tgz";
+        sha512 = "J32dgx2hw8vXrSbu4ZlVhn1Nm3GbeCFNw2FWL8S5QKucHGY0cyNwjdQdO+KMBZ4wpmC7KhLCiNsdk1RFRIYUQQ==";
       };
     };
     "@types/qs-6.9.5" = {
@@ -157,13 +157,13 @@ let
         sha512 = "ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==";
       };
     };
-    "@types/serve-static-1.13.7" = {
+    "@types/serve-static-1.13.8" = {
       name = "_at_types_slash_serve-static";
       packageName = "@types/serve-static";
-      version = "1.13.7";
+      version = "1.13.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/serve-static/-/serve-static-1.13.7.tgz";
-        sha512 = "3diZWucbR+xTmbDlU+FRRxBf+31OhFew7cJXML/zh9NmvSPTNoFecAwHB66BUqFgENJtqMiyl7JAwUE/siqdLw==";
+        url = "https://registry.npmjs.org/@types/serve-static/-/serve-static-1.13.8.tgz";
+        sha512 = "MoJhSQreaVoL+/hurAZzIm8wafFR6ajiTM1m4A0kv6AGeVBl4r4pOV8bGFrjjq1sGxDTnCoF8i22o0/aE5XCyA==";
       };
     };
     "abbrev-1.1.1" = {
@@ -598,13 +598,13 @@ let
         sha512 = "bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==";
       };
     };
-    "debug-4.3.0" = {
+    "debug-4.3.1" = {
       name = "debug";
       packageName = "debug";
-      version = "4.3.0";
+      version = "4.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.3.0.tgz";
-        sha512 = "jjO6JD2rKfiZQnBoRzhRTbXjHLGLfH+UtGkWLc/UXAh/rzZMyjbgn0NcfFpqT8nd1kTtFnDiJcrIFkq4UKeJVg==";
+        url = "https://registry.npmjs.org/debug/-/debug-4.3.1.tgz";
+        sha512 = "doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==";
       };
     };
     "delayed-stream-1.0.0" = {
@@ -1310,13 +1310,13 @@ let
         sha512 = "N0qPlqfypFx7UHNn4B3lzS/b0uLqt2hmuoa+PpuXNYgozdJYAyauF5Ky0BWVjrxDlMWiT3qN4zPq3vVAfZy7Yg==";
       };
     };
-    "loglevel-1.7.0" = {
+    "loglevel-1.7.1" = {
       name = "loglevel";
       packageName = "loglevel";
-      version = "1.7.0";
+      version = "1.7.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/loglevel/-/loglevel-1.7.0.tgz";
-        sha512 = "i2sY04nal5jDcagM3FMfG++T69GEEM8CYuOfeOIvmXzOIcwE9a/CJPR0MFM97pYMj/u10lzz7/zd7+qwhrBTqQ==";
+        url = "https://registry.npmjs.org/loglevel/-/loglevel-1.7.1.tgz";
+        sha512 = "Hesni4s5UkWkwCGJMQGAh71PaLUmKFM60dHvq0zi/vDhhrzuk+4GgNbTXJ12YYQJn6ZKBDNIjYcuQGKudvqrIw==";
       };
     };
     "lowdb-1.0.0" = {
@@ -1346,15 +1346,6 @@ let
         sha1 = "b5c8351b9464cbd750335a79650a0ec0e56118dd";
       };
     };
-    "matrix-appservice-0.6.0" = {
-      name = "matrix-appservice";
-      packageName = "matrix-appservice";
-      version = "0.6.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/matrix-appservice/-/matrix-appservice-0.6.0.tgz";
-        sha512 = "MkM4PzBeNBi/AcSDWgUD6zWlGY2ckBSF3dn8IgXWf44uHDx6WZfWyIt4E/KKsx9iy3EO78IfWmK+7Qva4eug5A==";
-      };
-    };
     "matrix-appservice-0.7.1" = {
       name = "matrix-appservice";
       packageName = "matrix-appservice";
@@ -1364,13 +1355,13 @@ let
         sha512 = "oUjEz+eKfBw66FnQ3/D7PWcq+/oq9gzJVlNOMQUSGXgK70o8JT3toeFMYsJChaIimU5fIsHbTVyHC+eVGb7MSQ==";
       };
     };
-    "matrix-appservice-bridge-2.3.1" = {
+    "matrix-appservice-bridge-2.4.0" = {
       name = "matrix-appservice-bridge";
       packageName = "matrix-appservice-bridge";
-      version = "2.3.1";
+      version = "2.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/matrix-appservice-bridge/-/matrix-appservice-bridge-2.3.1.tgz";
-        sha512 = "sHr3s0O7CetW3Zt1zo2wd23GadQzzDtQ518uFGs+j9kADwdJrVIHO/3YSXwjYUGIGH4MqPyFu7JxCS/hJXpBHw==";
+        url = "https://registry.npmjs.org/matrix-appservice-bridge/-/matrix-appservice-bridge-2.4.0.tgz";
+        sha512 = "85ZJkrJCKKhprW+dNKn87wZYt5HRD9PKN+lhbeCf7K6EINHqXy0ldK6+w4mSiB5eVESl/7HzRnrmmGJYPMg+qw==";
       };
     };
     "matrix-bot-sdk-0.4.0" = {
@@ -1382,13 +1373,13 @@ let
         sha512 = "ZIICFEYDsSX3emPnVRTV1FIV22zkt7KiJbTYN4rHQ3Z/rk66RB7Y+TMHxrkJCqPs3xVdaGmGkh5m+hNi4fibRg==";
       };
     };
-    "matrix-js-sdk-8.5.0" = {
+    "matrix-js-sdk-9.2.0" = {
       name = "matrix-js-sdk";
       packageName = "matrix-js-sdk";
-      version = "8.5.0";
+      version = "9.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/matrix-js-sdk/-/matrix-js-sdk-8.5.0.tgz";
-        sha512 = "RJCqK/QkesL+63rX4C4mShEFw/ZR20D1UMw1RKY8pQhv1/7Skz+v5BTv/UCqG45E3rRYMarNOwy13CZ+yq33FA==";
+        url = "https://registry.npmjs.org/matrix-js-sdk/-/matrix-js-sdk-9.2.0.tgz";
+        sha512 = "3lPgCB2in+AHDd+tLT8HbJ9elqDeJjYCE8i8Ti+NO2Myua62HIsf3pE/C/FE/QCDTuZBTjN0vgjym22M+GO65g==";
       };
     };
     "matrix-lastactive-0.1.5" = {
@@ -2438,33 +2429,33 @@ let
   };
 in
 {
-  "matrix-appservice-irc-0.22.0" = nodeEnv.buildNodePackage {
+  "matrix-appservice-irc-0.23.0" = nodeEnv.buildNodePackage {
     name = "matrix-appservice-irc";
     packageName = "matrix-appservice-irc";
-    version = "0.22.0";
+    version = "0.23.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/matrix-appservice-irc/-/matrix-appservice-irc-0.22.0.tgz";
-      sha512 = "6Do/htUTuV94O7vStZ5gHw7ItCi6UlTSZgF7FQvWFksLVOa2h3N/mR7ahlpKAArgVzS3jTGGXnApFwKXQVOvnQ==";
+      url = "https://registry.npmjs.org/matrix-appservice-irc/-/matrix-appservice-irc-0.23.0.tgz";
+      sha512 = "6ggq7P4twM8ODUExKpktPeLYA9q2Y42ogicXkiNKrI28DkhigNT2zmHwDpW9ldC//3HJzxnllDLjTPDcyRdEAQ==";
     };
     dependencies = [
       sources."@babel/runtime-7.12.5"
       sources."@dabh/diagnostics-2.0.2"
-      sources."@sentry/core-5.27.4"
-      sources."@sentry/hub-5.27.4"
-      sources."@sentry/minimal-5.27.4"
-      sources."@sentry/node-5.27.4"
-      sources."@sentry/tracing-5.27.4"
-      sources."@sentry/types-5.27.4"
-      sources."@sentry/utils-5.27.4"
+      sources."@sentry/core-5.27.6"
+      sources."@sentry/hub-5.27.6"
+      sources."@sentry/minimal-5.27.6"
+      sources."@sentry/node-5.27.6"
+      sources."@sentry/tracing-5.27.6"
+      sources."@sentry/types-5.27.6"
+      sources."@sentry/utils-5.27.6"
       sources."@types/body-parser-1.19.0"
       sources."@types/connect-3.4.33"
       sources."@types/express-4.17.9"
-      sources."@types/express-serve-static-core-4.17.13"
+      sources."@types/express-serve-static-core-4.17.14"
       sources."@types/mime-2.0.3"
-      sources."@types/node-14.14.7"
+      sources."@types/node-14.14.10"
       sources."@types/qs-6.9.5"
       sources."@types/range-parser-1.2.3"
-      sources."@types/serve-static-1.13.7"
+      sources."@types/serve-static-1.13.8"
       sources."abbrev-1.1.1"
       sources."accepts-1.3.7"
       sources."agent-base-6.0.2"
@@ -2515,7 +2506,7 @@ in
       sources."cookie-signature-1.0.6"
       sources."core-util-is-1.0.2"
       sources."dashdash-1.14.1"
-      sources."debug-4.3.0"
+      sources."debug-4.3.1"
       sources."delayed-stream-1.0.0"
       sources."depd-1.1.2"
       sources."destroy-1.0.4"
@@ -2601,15 +2592,14 @@ in
       sources."localforage-1.9.0"
       sources."lodash-4.17.20"
       sources."logform-2.2.0"
-      sources."loglevel-1.7.0"
+      sources."loglevel-1.7.1"
       sources."lowdb-1.0.0"
       sources."lru-cache-5.1.1"
       sources."lru_map-0.3.3"
-      sources."matrix-appservice-0.6.0"
-      (sources."matrix-appservice-bridge-2.3.1" // {
+      sources."matrix-appservice-0.7.1"
+      (sources."matrix-appservice-bridge-2.4.0" // {
         dependencies = [
           sources."extend-3.0.2"
-          sources."matrix-appservice-0.7.1"
           sources."nopt-4.0.3"
         ];
       })
@@ -2618,7 +2608,7 @@ in
           sources."chalk-3.0.0"
         ];
       })
-      (sources."matrix-js-sdk-8.5.0" // {
+      (sources."matrix-js-sdk-9.2.0" // {
         dependencies = [
           sources."qs-6.9.4"
         ];
