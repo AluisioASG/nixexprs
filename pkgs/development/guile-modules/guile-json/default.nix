@@ -1,12 +1,12 @@
-{ stdenv, lib, pkgconfig, guile }:
+{ stdenv, lib, fetchzip, pkgconfig, guile }:
 
 stdenv.mkDerivation rec {
   pname = "guile-json";
-  version = "4.3.2";
+  version = "4.4.1";
 
-  src = builtins.fetchTarball {
-    url = "https://download.savannah.nongnu.org/releases/guile-json/guile-json-${version}.tar.gz";
-    sha256 = "1ciqx3zhyl703lv7s2whi860lq9455z56c5w26zvx6fdlblgz84p";
+  src = fetchzip {
+    url = "mirror://savannah/${pname}/${pname}-${version}.tar.gz";
+    hash = "sha256-aksK5rBzhD0/nUR4Am65u3HFrEeh7S47izFuY2czqXQ=";
   };
 
   nativeBuildInputs = [ pkgconfig ];
