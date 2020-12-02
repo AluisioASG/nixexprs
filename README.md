@@ -3,7 +3,6 @@
 <!-- BEGIN badges -->
 [![Linux (nixpkgs-unstable) build status badge](https://builds.sr.ht/~aasg/nixexprs/commits/nixpkgs-unstable.yml.svg?name=%E2%97%AF%20Linux%C2%A0)](https://builds.sr.ht/~aasg/nixexprs/commits/nixpkgs-unstable.yml?)
 [![macOS (nixpkgs-unstable) build status badge](https://github.com/AluisioASG/nixexprs/workflows/macOS/badge.svg)](https://github.com/AluisioASG/nixexprs/actions?query=workflow%3AmacOS)
-[![NixOS 20.03 build status badge](https://builds.sr.ht/~aasg/nixexprs/commits/nixos-20.03.yml.svg?name=NixOS%2020.03)](https://builds.sr.ht/~aasg/nixexprs/commits/nixos-20.03.yml?)
 [![NixOS 20.09 build status badge](https://builds.sr.ht/~aasg/nixexprs/commits/nixos-20.09.yml.svg?name=NixOS%2020.09)](https://builds.sr.ht/~aasg/nixexprs/commits/nixos-20.09.yml?)
 <!-- END badges -->
 
