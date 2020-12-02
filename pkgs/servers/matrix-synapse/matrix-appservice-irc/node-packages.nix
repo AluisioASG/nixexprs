@@ -22,67 +22,67 @@ let
         sha512 = "+A1YivoVDNNVCdfozHSR8v/jyuuLTMXwjWuxPFlFlUapXoGc+Gj9mDlTDDfrwl7rXCl2tNZ0kE8sIBO6YOn96Q==";
       };
     };
-    "@sentry/core-5.27.6" = {
+    "@sentry/core-5.28.0" = {
       name = "_at_sentry_slash_core";
       packageName = "@sentry/core";
-      version = "5.27.6";
+      version = "5.28.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/core/-/core-5.27.6.tgz";
-        sha512 = "izCS5iyc6HAfpW1AsGXLAKetx82C1Sq1siAh97tOlSK58PVJAEH/WMiej9WuZJxCDTOtj94QtoLflssrZyAtFg==";
+        url = "https://registry.npmjs.org/@sentry/core/-/core-5.28.0.tgz";
+        sha512 = "hLAUFauqX+v/ap8ATJFdp392ZvfFoR0Gb4pyRkzOeWWs5ZYuqyb9Dsjtwsb61HH/XHQGW/BKZJR2dgIjQq4JGA==";
       };
     };
-    "@sentry/hub-5.27.6" = {
+    "@sentry/hub-5.28.0" = {
       name = "_at_sentry_slash_hub";
       packageName = "@sentry/hub";
-      version = "5.27.6";
+      version = "5.28.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/hub/-/hub-5.27.6.tgz";
-        sha512 = "bOMky3iu7zEghSaWmTayfme5tCpUok841qDCGxGKuyAtOhBDsgGNS/ApNEEDF2fyX0oo4G1cHYPWhX90ZFf/xA==";
+        url = "https://registry.npmjs.org/@sentry/hub/-/hub-5.28.0.tgz";
+        sha512 = "1k19yJJcKoHbw12FET35t0m86lx/X6eJ6r4qM13eb2WN/OpoFtsgs1IjQOhGFL3OfVMcfh800Lc57ga04RLjLA==";
       };
     };
-    "@sentry/minimal-5.27.6" = {
+    "@sentry/minimal-5.28.0" = {
       name = "_at_sentry_slash_minimal";
       packageName = "@sentry/minimal";
-      version = "5.27.6";
+      version = "5.28.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/minimal/-/minimal-5.27.6.tgz";
-        sha512 = "pKhzVQX9nL4m1dcnb2i2Y47IWVNs+K3wiYLgCB9hl9+ApxppfOc+fquiFoCloST3IuaD4yly2TtbOJgAMWcMxQ==";
+        url = "https://registry.npmjs.org/@sentry/minimal/-/minimal-5.28.0.tgz";
+        sha512 = "HzFrJx0xe5KETEZc7RxlH+1TfmH3q8w35ILOP5HGvk3+lG1DR25wHbMFmuUqNqVXrl26t0z32UBI30G1MxmTfA==";
       };
     };
-    "@sentry/node-5.27.6" = {
+    "@sentry/node-5.28.0" = {
       name = "_at_sentry_slash_node";
       packageName = "@sentry/node";
-      version = "5.27.6";
+      version = "5.28.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/node/-/node-5.27.6.tgz";
-        sha512 = "ogKL4F3wSZuzNeHOGKPqQPbZ87Bd/dC8wk7Rwbui3SIMgtoUmO3rSOR4Edwar6mf330cA6CY9roylWdcaSqmZA==";
+        url = "https://registry.npmjs.org/@sentry/node/-/node-5.28.0.tgz";
+        sha512 = "mzmLzGpUm7dS+U3Pnbovr8UEn69nHJ/krc1Cj7UEaqQKkTVbj2C9zKjXsNR8xkUA8lZdcOIZR4KlBFcL0xYqVA==";
       };
     };
-    "@sentry/tracing-5.27.6" = {
+    "@sentry/tracing-5.28.0" = {
       name = "_at_sentry_slash_tracing";
       packageName = "@sentry/tracing";
-      version = "5.27.6";
+      version = "5.28.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/tracing/-/tracing-5.27.6.tgz";
-        sha512 = "ms3vprEId+hi8hcqtf8weqsNGASaDXAZzIOT4g2gASGpwLb5hLuScpM8z6Yhu5FGjb8DektlW5OrXJSsStIozw==";
+        url = "https://registry.npmjs.org/@sentry/tracing/-/tracing-5.28.0.tgz";
+        sha512 = "7UOgwpMTcSDrWDORY5PpOgw+yzJ9GcyKfqWK7eBqn2NqMdjVNvkZ51eOCSrNUuQ6Nrk7Q7uoPe/hW32Ch/zxvA==";
       };
     };
-    "@sentry/types-5.27.6" = {
+    "@sentry/types-5.28.0" = {
       name = "_at_sentry_slash_types";
       packageName = "@sentry/types";
-      version = "5.27.6";
+      version = "5.28.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/types/-/types-5.27.6.tgz";
-        sha512 = "XOW9W8DrMk++4Hk7gWi9o5VR0o/GrqGfTKyFsHSIjqt2hL6kiMPvKeb2Hhmp7Iq37N2bDmRdWpM5m+68S2Jk6w==";
+        url = "https://registry.npmjs.org/@sentry/types/-/types-5.28.0.tgz";
+        sha512 = "nNhoZEXdqM2xivxJBrLhxtJ2+s6FfKXUw5yBf0Jf/RBrBnH5fggPNImmyfpOoysl72igWcMWk4nnfyP5iDrriQ==";
       };
     };
-    "@sentry/utils-5.27.6" = {
+    "@sentry/utils-5.28.0" = {
       name = "_at_sentry_slash_utils";
       packageName = "@sentry/utils";
-      version = "5.27.6";
+      version = "5.28.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@sentry/utils/-/utils-5.27.6.tgz";
-        sha512 = "/QMVLv+zrTfiIj2PU+SodSbSzD5MmamMOaljkDsRIVsj6gpkm1/VG1g2+40TZ0FbQ4hCW2F+iR7cnqzZBNmchA==";
+        url = "https://registry.npmjs.org/@sentry/utils/-/utils-5.28.0.tgz";
+        sha512 = "LW+ReVw9JG6g8Bvp2I1ThMDPATlisvkde+1WykxGqRhu2YIO+PvWhnoFhr9RD0ia3rYVlJkgkuTshMbPJ8HVwA==";
       };
     };
     "@types/body-parser-1.19.0" = {
@@ -652,13 +652,13 @@ let
         sha512 = "ox7bvGXt2n+uLWtCRLybYx60IrOlWL/aCebWJk1T0d4m3y2tzf4U3ij9wBMUb6YJZpz06HCCYuyCDveE2xXmzQ==";
       };
     };
-    "domelementtype-2.0.2" = {
+    "domelementtype-2.1.0" = {
       name = "domelementtype";
       packageName = "domelementtype";
-      version = "2.0.2";
+      version = "2.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/domelementtype/-/domelementtype-2.0.2.tgz";
-        sha512 = "wFwTwCVebUrMgGeAwRL/NhZtHAUyT9n9yg4IMDwf10+6iCMxSkVq9MGCVEH+QZWo1nNidy8kNvwmv4zWHDTqvA==";
+        url = "https://registry.npmjs.org/domelementtype/-/domelementtype-2.1.0.tgz";
+        sha512 = "LsTgx/L5VpD+Q8lmsXSHW2WpA+eBlZ9HPf3erD1IoPF00/3JKHZ3BknUVA2QGDNu69ZNmyFmCWBSO45XjYKC5w==";
       };
     };
     "domhandler-3.3.0" = {
@@ -2429,7 +2429,7 @@ let
   };
 in
 {
-  "matrix-appservice-irc-0.23.0" = nodeEnv.buildNodePackage {
+  matrix-appservice-irc = nodeEnv.buildNodePackage {
     name = "matrix-appservice-irc";
     packageName = "matrix-appservice-irc";
     version = "0.23.0";
@@ -2440,13 +2440,13 @@ in
     dependencies = [
       sources."@babel/runtime-7.12.5"
       sources."@dabh/diagnostics-2.0.2"
-      sources."@sentry/core-5.27.6"
-      sources."@sentry/hub-5.27.6"
-      sources."@sentry/minimal-5.27.6"
-      sources."@sentry/node-5.27.6"
-      sources."@sentry/tracing-5.27.6"
-      sources."@sentry/types-5.27.6"
-      sources."@sentry/utils-5.27.6"
+      sources."@sentry/core-5.28.0"
+      sources."@sentry/hub-5.28.0"
+      sources."@sentry/minimal-5.28.0"
+      sources."@sentry/node-5.28.0"
+      sources."@sentry/tracing-5.28.0"
+      sources."@sentry/types-5.28.0"
+      sources."@sentry/utils-5.28.0"
       sources."@types/body-parser-1.19.0"
       sources."@types/connect-3.4.33"
       sources."@types/express-4.17.9"
@@ -2511,7 +2511,7 @@ in
       sources."depd-1.1.2"
       sources."destroy-1.0.4"
       sources."dom-serializer-1.1.0"
-      sources."domelementtype-2.0.2"
+      sources."domelementtype-2.1.0"
       sources."domhandler-3.3.0"
       sources."domutils-2.4.2"
       sources."ecc-jsbn-0.1.2"
@@ -2772,6 +2772,24 @@ in
       description = "An IRC Bridge for Matrix";
       homepage = "https://github.com/matrix-org/matrix-appservice-irc#readme";
       license = "Apache-2.0";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
+  node-gyp-build = nodeEnv.buildNodePackage {
+    name = "node-gyp-build";
+    packageName = "node-gyp-build";
+    version = "4.2.3";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.2.3.tgz";
+      sha512 = "MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==";
+    };
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Build tool and bindings loader for node-gyp that supports prebuilds";
+      homepage = https://github.com/prebuild/node-gyp-build;
+      license = "MIT";
     };
     production = true;
     bypassCache = true;

@@ -1,21 +1,14 @@
-{ stdenv, lib, pkgs, makeWrapper, nodejs, nodePackages, ... }:
+{ stdenv, lib, pkgs, makeWrapper, nodejs, xcodebuild }:
 let
-  inherit (lib) attrValues findSingle;
-
-  ourNodePackages = import ./node-composition.nix {
+  nodePackages = import ./node-composition.nix {
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   };
-
-  nodePackage = findSingle
-    (drv: drv ? packageName && drv.packageName == "matrix-appservice-irc")
-    (throw "no 'matrix-appservice-irc' package found in nodePackages")
-    (throw "multiple 'matrix-appservice-irc' packages found in nodePackages")
-    (attrValues ourNodePackages);
 in
-nodePackage.override {
+nodePackages.matrix-appservice-irc.override {
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ nodePackages.node-gyp-build ];
+  buildInputs = [ nodePackages.node-gyp-build ]
+    ++ lib.optional stdenv.isDarwin xcodebuild;
 
   postInstall = ''
     makeWrapper '${nodejs}/bin/node' "$out/bin/matrix-appservice-irc" \
