@@ -109,7 +109,8 @@ in
       };
       preStart = ''
         ${optionalString (cfg.secretFile != null) ''
-          read -r CLUSTER_SECRET <${cfg.secretFile}
+        read -r CLUSTER_SECRET <${cfg.secretFile}
+        export CLUSTER_SECRET
         ''}
         if [[ ! -f ${cfg.dataDir}/service.json ]]; then
           ${cfg.package}/bin/ipfs-cluster-service init \
@@ -119,7 +120,8 @@ in
       '';
       script = ''
         ${optionalString (cfg.secretFile != null) ''
-          read -r CLUSTER_SECRET <${cfg.secretFile}
+        read -r CLUSTER_SECRET <${cfg.secretFile}
+        export CLUSTER_SECRET
         ''}
         exec ${cfg.package}/bin/ipfs-cluster-service daemon
       '';
