@@ -1,6 +1,11 @@
 { config, lib, utils, pkgs, ... }:
-with import ../../../lib/extension.nix { inherit lib; };
 let
+  aasgLib = import ../../../lib { inherit lib; };
+
+  inherit (lib) mkEnableOption mkForce mkIf;
+  inherit (lib) attrValues concatMap filterAttrs getAttrs mapAttrs mapAttrs' nameValuePair optional optionals pipe versionOlder;
+  inherit (aasgLib) capitalizeAttrNames concatMapAttrs concatMapAttrsToList;
+
   cfg = config.networking.wireguard;
   kernel = config.boot.kernelPackages;
 
@@ -36,7 +41,7 @@ let
       address = interfaceCfg.ips;
       routes =
         let
-          peerIPs = builtins.concatMap (peer: peer.allowedIPs) interfaceCfg.peers;
+          peerIPs = concatMap (peer: peer.allowedIPs) interfaceCfg.peers;
           peerRoutes = map (generateRoute interfaceCfg.table) peerIPs;
         in
         optionals interfaceCfg.allowedIPsAsRoutes peerRoutes;
@@ -45,24 +50,25 @@ let
   deviceUnit = interfaceName:
     "sys-subsystem-net-devices-${utils.escapeSystemdPath interfaceName}.device";
 
-  generatePreSetup = interfaceName: interfaceCfg:
-    nameValuePair "wireguard-${interfaceName}-prestart" {
+  optionalService = cond: name:
+    if cond then name else null;
+
+  generateServices = interfaceName: interfaceCfg: {
+    ${optionalService (interfaceCfg.preSetup != "") "wireguard-${interfaceName}-prestart"} = {
       wantedBy = [ (deviceUnit interfaceName) ];
       before = [ (deviceUnit interfaceName) ];
       script = interfaceCfg.preSetup;
       serviceConfig.Type = "oneshot";
     };
 
-  generatePostSetup = interfaceName: interfaceCfg:
-    nameValuePair "wireguard-${interfaceName}-poststart" {
+    ${optionalService (interfaceCfg.postSetup != "") "wireguard-${interfaceName}-poststart"} = {
       wantedBy = [ (deviceUnit interfaceName) ];
       after = [ (deviceUnit interfaceName) ];
       script = interfaceCfg.postSetup;
       serviceConfig.Type = "oneshot";
     };
 
-  generatePostShutdown = interfaceName: interfaceCfg:
-    nameValuePair "wireguard-${interfaceName}-poststop" {
+    ${optionalService (interfaceCfg.postShutdown != "") "wireguard-${interfaceName}-poststop"} = {
       wantedBy = [ (deviceUnit interfaceName) ];
       partOf = [ (deviceUnit interfaceName) ];
       before = [ (deviceUnit interfaceName) ];
@@ -71,9 +77,7 @@ let
       serviceConfig.RemainAfterExit = true;
     };
 
-  generateKeyServiceUnit = interfaceName: interfaceCfg:
-    assert interfaceCfg.generatePrivateKeyFile;
-    nameValuePair "wireguard-${interfaceName}-key" {
+    ${optionalService interfaceCfg.generatePrivateKeyFile "wireguard-${interfaceName}-key"} = {
       description = "WireGuard Tunnel - ${interfaceName} - Key Generator";
       group = "systemd-network";
       wantedBy = [ "systemd-networkd.service" ];
@@ -91,13 +95,7 @@ let
       serviceConfig.Type = "oneshot";
       serviceConfig.RemainAfterExit = true;
     };
-
-  generateServices = interfaceName: interfaceCfg: [
-    (optional interfaceCfg.generatePrivateKeyFile (generateKeyServiceUnit interfaceName interfaceCfg))
-    (optional (interfaceCfg.preSetup != "") (generatePreSetup interfaceName interfaceCfg))
-    (optional (interfaceCfg.postSetup != "") (generatePostSetup interfaceName interfaceCfg))
-    (optional (interfaceCfg.postShutdown != "") (generatePostShutdown interfaceName interfaceCfg))
-  ];
+  };
 in
 {
   options = {
@@ -107,11 +105,9 @@ in
   config = mkIf cfg.enableNetworkd {
     assertions =
       let
-        allPeers = flatten
-          (mapAttrsToList
-            (interfaceName: interfaceCfg:
-              map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers)
-            cfg.interfaces);
+        allPeers = concatMapAttrsToList
+          (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers)
+          cfg.interfaces;
       in
       (attrValues (
         mapAttrs
@@ -147,6 +143,6 @@ in
 
     systemd.network.netdevs = mapAttrs' generateNetdev cfg.interfaces;
     systemd.network.networks = mapAttrs' generateNetwork cfg.interfaces;
-    systemd.services = listToAttrs (flatten (mapAttrsToList generateServices cfg.interfaces));
+    systemd.services = concatMapAttrs generateServices cfg.interfaces;
   };
 }
