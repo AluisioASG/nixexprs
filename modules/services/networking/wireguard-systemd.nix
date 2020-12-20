@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, utils, pkgs, ... }:
 with import ../../../lib/extension.nix { inherit lib; };
 let
   cfg = config.networking.wireguard;
@@ -42,32 +42,33 @@ let
         optionals interfaceCfg.allowedIPsAsRoutes peerRoutes;
     };
 
+  deviceUnit = interfaceName:
+    "sys-subsystem-net-devices-${utils.escapeSystemdPath interfaceName}.device";
+
   generatePreSetup = interfaceName: interfaceCfg:
     nameValuePair "wireguard-${interfaceName}-prestart" {
-      wantedBy = [ "sys-subsystem-net-devices-${interfaceName}.device" ];
-      before = [ "sys-subsystem-net-devices-${interfaceName}.device" ];
+      wantedBy = [ (deviceUnit interfaceName) ];
+      before = [ (deviceUnit interfaceName) ];
       script = interfaceCfg.preSetup;
       serviceConfig.Type = "oneshot";
     };
 
   generatePostSetup = interfaceName: interfaceCfg:
     nameValuePair "wireguard-${interfaceName}-poststart" {
-      wantedBy = [ "sys-subsystem-net-devices-${interfaceName}.device" ];
-      after = [ "sys-subsystem-net-devices-${interfaceName}.device" ];
+      wantedBy = [ (deviceUnit interfaceName) ];
+      after = [ (deviceUnit interfaceName) ];
       script = interfaceCfg.postSetup;
       serviceConfig.Type = "oneshot";
     };
 
   generatePostShutdown = interfaceName: interfaceCfg:
     nameValuePair "wireguard-${interfaceName}-poststop" {
-      wantedBy = [ "sys-subsystem-net-devices-${interfaceName}.device" ];
-      partOf = [ "sys-subsystem-net-devices-${interfaceName}.device" ];
-      before = [ "sys-subsystem-net-devices-${interfaceName}.device" ];
+      wantedBy = [ (deviceUnit interfaceName) ];
+      partOf = [ (deviceUnit interfaceName) ];
+      before = [ (deviceUnit interfaceName) ];
       preStop = interfaceCfg.postShutdown;
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
+      serviceConfig.Type = "oneshot";
+      serviceConfig.RemainAfterExit = true;
     };
 
   generateKeyServiceUnit = interfaceName: interfaceCfg:
@@ -78,10 +79,6 @@ let
       wantedBy = [ "systemd-networkd.service" ];
       requiredBy = [ "systemd-networkd.service" ];
       before = [ "systemd-networkd.service" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
       script = ''
         mkdir -m 0750 -p "${dirOf interfaceCfg.privateKeyFile}"
         if [[ ! -f "${interfaceCfg.privateKeyFile}" ]]; then
@@ -91,6 +88,8 @@ let
           chmod 0440 "${interfaceCfg.privateKeyFile}"
         fi
       '';
+      serviceConfig.Type = "oneshot";
+      serviceConfig.RemainAfterExit = true;
     };
 
   generateServices = interfaceName: interfaceCfg: [
