@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   makeFlags = [
-    "ARCH=${stdenv.hostPlatform.platform.kernelArch}"
+    # TODO: remove fallback post NixOS 20.09 (see also github:NixOS/nixpkgs#107214)
+    "ARCH=${stdenv.hostPlatform.linuxArch or stdenv.hostPlatform.platform.kernelArch}"
     "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "KVER=${kernel.version}"
     "DEPMOD=true"
