@@ -1,4 +1,4 @@
-{ stdenv, python3Packages }:
+{ stdenv, lib, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "dyndnsc";
@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
 
   checkPhase =
     let
-      inherit (stdenv.lib) concatStringsSep optional;
+      inherit (lib) concatStringsSep optional;
       # dnswanip connects to an external server to discover the
       # machine's IP address.
       #
@@ -48,7 +48,7 @@ python3Packages.buildPythonApplication rec {
   # Allow tests involving localhost on macOS.
   __darwinAllowLocalNetworking = true;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Dynamic DNS update client with support for multiple protocols";
     longDescription = ''
       Dyndnsc is a command line client for sending updates to Dynamic
