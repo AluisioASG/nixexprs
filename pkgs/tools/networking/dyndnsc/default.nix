@@ -2,17 +2,18 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "dyndnsc";
-  version = "0.5.1";
+  version = "0.6.0";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "1p8dgfhvks1bjvq8gww4yvi3g8fam2m5irirkf7xjhs8g38r8bjb";
+    sha256 = "a2a930c30b095735f2745d9db3197e598a24e73da457ccb82bda10ae49e1d59a";
   };
 
   nativeBuildInputs = with python3Packages; [ pytestrunner ];
   propagatedBuildInputs = with python3Packages; [
     daemonocle
     dnspython
+    json-logging
     netifaces
     requests
     setuptools
