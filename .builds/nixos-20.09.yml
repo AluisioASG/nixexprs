@@ -10,12 +10,4 @@ tasks:
       cachix use aasg-nixexprs
       nix path-info --all | grep -v '\.drv$' | sort >pre-build-paths
   - build: |
-      nix-build --no-out-link --keep-going --keep-failed --show-trace ./nixexprs/ci.nix || touch FAILED
-  - cache: |
-      nix path-info --all | grep -v '\.drv$' | sort >post-build-paths
-      comm -13 pre-build-paths post-build-paths | cachix push aasg-nixexprs
-  - finish: |
-      if [[ -f FAILED ]]; then
-        echo "Build failed. See logs of the build task for details."
-        exit 1
-      fi
+      cachix watch-exec aasg-nixexprs -- nix-build --no-out-link --keep-going --keep-failed --show-trace ./nixexprs/ci.nix
