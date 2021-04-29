@@ -8,9 +8,9 @@ let
       derivationTree = value:
         # Output derivations directly, but only if they're compatible
         # with this platform.
-        if isDerivation value && builtins.elem pkgs.system value.meta.platforms
+        if isDerivation value && builtins.elem pkgs.system (value.meta.platforms or [ pkgs.system ])
         then value
-        else if value ? recurseForDerivations && value.recurseForDerivations == true
+        else if value.recurseForDerivations or false
         then
           pipe value [
             # Don't evaluate linuxPackages outside Linux, or it will
