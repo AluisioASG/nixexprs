@@ -5,10 +5,13 @@ let
 
   selectDerivations = set:
     let
+      # Check if a given derivation must be built in the current system.
+      shouldBuildForPlatform = system: drv:
+        builtins.elem system (drv.meta.hydraPlatforms or drv.meta.platforms or [ system ]);
       derivationTree = value:
         # Output derivations directly, but only if they're compatible
         # with this platform.
-        if isDerivation value && builtins.elem pkgs.system (value.meta.platforms or [ pkgs.system ])
+        if isDerivation value && shouldBuildForPlatform pkgs.system value
         then value
         else if value.recurseForDerivations or false
         then
